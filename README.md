@@ -31,6 +31,28 @@ The system is designed with zero external deployment bloat: you can run it direc
 
 ---
 
+## 📸 User Interface Overview
+
+RestaurantScraper includes a zero-dependency, local-first Web GUI built with vanilla JavaScript and Tailwind CSS that connects directly to the embedded SQLite database and Python scraper engine.
+
+### 🗄️ Database Explorer & Selective Export
+Browse saved restaurants, filter by delivery area, select individual venues with checkboxes, and trigger selective multi-venue exports directly from the sticky action bar.
+![Database Explorer](docs/images/database_explorer.png)
+
+### 📋 Organized Menu Inspector Modal
+Click **Inspect Menu** on any restaurant to browse dishes organized by category (e.g. Mains, Beverages, Desserts), search items, inspect ingredients & pricing in MYR, and export that single restaurant with one click.
+![Menu Inspector Modal](docs/images/menu_inspector_modal.png)
+
+### 🕷️ Universal Scraper Studio
+Scrape GrabFood and foodpanda menus visually with quick URL presets, custom area/cuisine overrides, live real-time execution logs, and immediate item previews.
+![Scraper Studio](docs/images/scraper_studio.png)
+
+### 📦 Data Export Center
+Export your collected data in clean, sanitized CSV (RFC 4180 compliant with formula injection protection) or nested hierarchical JSON. Choose between exporting the entire catalog or only selected restaurants.
+![Export Center](docs/images/export_center.png)
+
+---
+
 ## 📦 Complete Installation Tutorial (Step-by-Step)
 
 Follow this thorough guide to install and run RestaurantScraper on your machine from scratch.
@@ -319,12 +341,12 @@ pytest tests
 
 Expected output:
 ```
-tests/test_cli.py .....                                                  [ 19%]
-tests/test_scraper.py ............                                       [ 65%]
+tests/test_cli.py ......                                                 [ 22%]
+tests/test_scraper.py ............                                       [ 66%]
 tests/test_security.py ........                                          [ 96%]
 tests/test_server.py .                                                   [100%]
 
-============================== 26 passed in 1.37s ==============================
+============================== 27 passed in 1.31s ==============================
 ```
 
 ---
