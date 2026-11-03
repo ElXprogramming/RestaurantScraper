@@ -116,7 +116,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
   const totalPages = Math.ceil(totalCount / pageSize);
 
   const handleCopyForPandas = () => {
-    const pythonCode = `# Quick Python Pandas Loader for GastroMine KK Dataset
+    const pythonCode = `# Quick Python Pandas Loader for RestaurantScraper KK Dataset
 import pandas as pd
 
 url = "http://localhost:5173${api.getExportUrl('csv')}"

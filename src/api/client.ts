@@ -58,7 +58,7 @@ async function tryFetchJson<T>(url: string): Promise<T | null> {
       return (await res.json()) as T;
     }
   } catch {
-    // Local dev server not running or deployed on static host (e.g. Netlify)
+    // Local dev server not running or deployed on static host (e.g. Vercel)
   }
   return null;
 }
@@ -199,7 +199,7 @@ export const api = {
     const data = await postJson<ScrapeResult>('/api/scrape', options, 'Scrape failed');
     if (data) return data;
 
-    throw new Error('Live scraping execution requires the local development environment (Node.js & Python Playwright). The live Netlify deployment is running in high-performance static showcase mode.');
+    throw new Error('Live scraping execution requires the local development environment (Node.js & Python Playwright). The live Vercel deployment is running in high-performance static showcase mode.');
   },
 
   async updateRestaurant(params: UpdateRestaurantParams): Promise<{ success: boolean; message: string }> {
@@ -235,7 +235,10 @@ export const api = {
   },
 
   getExportUrl(format: 'csv' | 'json' = 'csv'): string {
-    if (typeof window !== 'undefined' && window.location.hostname.includes('netlify.app')) {
+    if (
+      typeof window !== 'undefined' &&
+      (window.location.hostname.includes('vercel.app') || window.location.hostname.includes('netlify.app'))
+    ) {
       return format === 'json' ? '/data/restaurant_menu_dataset.json' : '/data/menu_items.csv';
     }
     return `/api/export?format=${format}`;

@@ -99,7 +99,7 @@ export function App() {
 
       <footer className="app-footer">
         <span className="footer-text">
-          GastroMine KK · 1Borneo & Alamesra Market Intelligence
+          RestaurantScraper KK · 1Borneo & Alamesra Market Intelligence
         </span>
       </footer>
     </div>

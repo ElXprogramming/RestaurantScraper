@@ -27,7 +27,7 @@ export const Header: React.FC<HeaderProps> = ({
             <Terminal size={18} />
           </div>
           <div className="brand-meta">
-            <span className="brand-name">GastroMine</span>
+            <span className="brand-name">RestaurantScraper</span>
             <span className="brand-tag">KK</span>
           </div>
         </div>

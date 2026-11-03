@@ -7,8 +7,8 @@
 [![Playwright](https://img.shields.io/badge/Playwright-Chromium-45ba4b?logo=playwright&logoColor=white)](https://playwright.dev/)
 [![SQLite](https://img.shields.io/badge/SQLite-3-003B57?logo=sqlite&logoColor=white)](https://www.sqlite.org/)
 [![Firebase](https://img.shields.io/badge/Firebase-Firestore-FFCA28?logo=firebase&logoColor=black)](https://firebase.google.com/)
-[![Tests](https://img.shields.io/badge/Tests-47%20Passing-brightgreen?logo=pytest&logoColor=white)](https://github.com/ElXprogramming/Grabfood-Data-Scraper)
-[![Security](https://img.shields.io/badge/Security-Multi--Tier%20Hardened-blueviolet?logo=shield&logoColor=white)](https://github.com/ElXprogramming/Grabfood-Data-Scraper)
+[![Tests](https://img.shields.io/badge/Tests-47%20Passing-brightgreen?logo=pytest&logoColor=white)](https://github.com/ElXprogramming/RestaurantScraper)
+[![Security](https://img.shields.io/badge/Security-Multi--Tier%20Hardened-blueviolet?logo=shield&logoColor=white)](https://github.com/ElXprogramming/RestaurantScraper)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 > **An end-to-end restaurant venue discovery, headless delivery & web menu extraction engine, and computational data mining laboratory.**
@@ -76,7 +76,7 @@ A high-performance restaurant intelligence platform engineered to map local dini
 - **Smart Website Parser**: Extracts menus directly from restaurant websites using schema.org `JSON-LD` microdata, regular expressions for price matching (`RM XX.XX`), and text extraction from downloadable PDF menus (`pypdf`).
 - **Geospatial & Fuzzy Deduplication**: Merges multi-source entries into a single restaurant entity using Haversine distance (<120m threshold) combined with Levenshtein/`SequenceMatcher` string similarity matching.
 - **Hybrid Storage & Cloud Sync**: Local offline-first relational persistence with SQLite 3 (`menus.db`) and on-demand cloud synchronization with Google Cloud Firestore via Firebase Admin SDK.
-- **Dual Deployment Modes**: Full-stack dynamic mode (Node.js API + SQLite + Python) and static production mode (pre-exported JSON/CSV dataset with zero-backend client fallback on Netlify).
+- **Dual Deployment Modes**: Full-stack dynamic mode (Node.js API + SQLite + Python) and static production mode (pre-exported JSON/CSV dataset with zero-backend client fallback on Vercel).
 
 ---
 
@@ -118,7 +118,7 @@ The system operates as a unified full-stack application. A React + TypeScript si
               ^                                       | - OpenStreetMap / Overpass API    |
               | Static Build Pre-export               | - Google Places API               |
 +-------------+-------------+                         +-----------------------------------+
-| public/data/*.json / CSV  | (Client Fallback for Netlify / Static Hosting)
+| public/data/*.json / CSV  | (Client Fallback for Vercel / Static Hosting)
 +---------------------------+
 ```
 
@@ -838,7 +838,7 @@ PYTHONPATH=scraper scraper/.venv/bin/pytest scraper/tests -k "delivery or price"
 | **Node Test Runner (`node --test`)** | Built-in high-speed unit testing for rate limiters, SSRF filters, DDE sanitization, and API security (27 tests) |
 | **Pytest** | Unit testing framework validating parsing logic, price extractors, and database schemas (20 tests) |
 | **ESLint** | Code linting and quality enforcement for TypeScript and React |
-| **Netlify (`netlify.toml`)** | Production deployment configuration with static JSON fallback and SPA routing rules |
+| **Vercel (`vercel.json`)** | Production deployment configuration with static JSON fallback and SPA routing rules |
 
 ---
 
@@ -953,7 +953,7 @@ RestaurantScraper/
 ├── eslint.config.js                   # ESLint flat configuration
 ├── index.html                         # SPA HTML entry point
 ├── LICENSE                            # MIT License file
-├── netlify.toml                       # Netlify deployment and SPA rewrite rules
+├── vercel.json                        # Vercel deployment and SPA rewrite rules
 ├── package.json                       # Node.js project manifest and scripts
 ├── tsconfig.json                      # TypeScript compiler configuration
 ├── vite.config.ts                     # Vite build configuration
@@ -978,8 +978,8 @@ Ensure the following runtimes and packages are installed on your machine:
 ### 1. Clone & Install Frontend Dependencies
 
 ```bash
-git clone https://github.com/ElXprogramming/Grabfood-Data-Scraper.git
-cd Grabfood-Data-Scraper
+git clone https://github.com/ElXprogramming/RestaurantScraper.git
+cd RestaurantScraper
 npm install
 ```
 
@@ -1062,7 +1062,7 @@ npm run build
 npm run preview
 ```
 
-When deployed to static hosts (such as Netlify or GitHub Pages), the frontend automatically detects static mode and serves the pre-rendered dataset with full client-side filtering, analytics, and export capabilities.
+When deployed to static hosts (such as Vercel or GitHub Pages), the frontend automatically detects static mode and serves the pre-rendered dataset with full client-side filtering, analytics, and export capabilities.
 
 ---
 

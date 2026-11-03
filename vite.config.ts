@@ -6,7 +6,7 @@ export default defineConfig(async ({ command }) => {
   const plugins: PluginOption[] = [react()]
 
   // Only load the local SQLite & scraper dev server middleware during local development (`vite`)
-  // Production builds (e.g. Netlify) build the static frontend bundle without needing node:sqlite
+  // Production builds (e.g. Vercel) build the static frontend bundle without needing node:sqlite
   if (command === 'serve') {
     try {
       const { apiPlugin } = await import('./vite-plugin-api.ts')

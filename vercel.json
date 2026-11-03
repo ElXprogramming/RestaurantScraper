@@ -1,0 +1,44 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "rewrites": [
+    {
+      "source": "/api/restaurants",
+      "destination": "/data/restaurants.json"
+    },
+    {
+      "source": "/api/analytics",
+      "destination": "/data/analytics.json"
+    },
+    {
+      "source": "/api/export",
+      "has": [
+        {
+          "type": "query",
+          "key": "format",
+          "value": "csv"
+        }
+      ],
+      "destination": "/data/menu_items.csv"
+    },
+    {
+      "source": "/api/export",
+      "has": [
+        {
+          "type": "query",
+          "key": "format",
+          "value": "json"
+        }
+      ],
+      "destination": "/data/restaurant_menu_dataset.json"
+    },
+    {
+      "source": "/api/export",
+      "destination": "/data/menu_items.csv"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
