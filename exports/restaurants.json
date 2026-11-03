@@ -3394,24 +3394,1609 @@
   {
     "id": 10,
     "name": "Pizza Hut",
-    "lat": 6.0360017,
-    "lon": 116.1295016,
-    "address": null,
-    "cuisine": "pizza",
+    "lat": 3.139,
+    "lon": 101.6869,
+    "address": "CL 015367254, Kg Darau, Menggatal, 1Borneo, 88450, Kota Kinabalu",
+    "cuisine": "Western,Pizza,Pasta",
     "phone": null,
-    "opening_hours": null,
-    "rating": null,
+    "opening_hours": "09:30:00 - 23:00:00",
+    "rating": 4.7,
     "website": null,
     "facebook": null,
     "instagram": null,
-    "grab_url": null,
+    "grab_url": "https://food.grab.com/my/en/restaurant/pizza-hut-tuaran-bypass-delivery/1-C2AALPTYKEDGCA?",
     "foodpanda_url": null,
     "area": "1borneo",
     "osm_id": "node/11817926319",
     "google_place_id": null,
     "created_at": "2026-10-22T01:58:55+00:00",
-    "updated_at": "2026-10-22T01:58:55+00:00",
-    "menu": []
+    "updated_at": "2026-11-03T04:25:26+00:00",
+    "menu": [
+      {
+        "category": "Today's Offer",
+        "name": "Regular Fun 5 Flavours Pizza (Buy 1 Free 1)",
+        "description": "Single Topping in Exciting Flavours!",
+        "price": 69.96,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Today's Offer",
+        "name": "MyBox Duo",
+        "description": "",
+        "price": 35.84,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Today's Offer",
+        "name": "MyBox Duo Pizza",
+        "description": "",
+        "price": 35.84,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Today's Offer",
+        "name": "MyBox Classic",
+        "description": "1 personal pizza + 1 Garlic Bread + 1  Creamy Mushroom Soup",
+        "price": 19.8,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Today's Offer",
+        "name": "MyBox Melts",
+        "description": "1 Melts + 1 Side + 1 Soft Drink Can",
+        "price": 20.75,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "For You",
+        "name": "Regular Fun 5 Flavours Pizza (Buy 1 Free 1)",
+        "description": "Single Topping in Exciting Flavours!",
+        "price": 69.96,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "For You",
+        "name": "MyBox Classic",
+        "description": "1 personal pizza + 1 Garlic Bread + 1  Creamy Mushroom Soup",
+        "price": 19.8,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "For You",
+        "name": "WeCombo Pizza for 4",
+        "description": "2 Regular Pizza + 2 Sides + 2 Cream of Mushroom Soup + 1.5L Coke",
+        "price": 56.59,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "For You",
+        "name": "MyBox Duo Pizza",
+        "description": "",
+        "price": 35.84,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "For You",
+        "name": "Regular Aloha Chicken",
+        "description": "Served with thousand island sauce, chicken rolls, chicken salami, pineapples, mozzarella cheese.",
+        "price": 35.84,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "For You",
+        "name": "Regular Hawaiian Chicken",
+        "description": "Served with tomato sauce, chicken meat, pineapples, mozzarella cheese.",
+        "price": 35.84,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "For You",
+        "name": "MyBox Melts",
+        "description": "1 Melts + 1 Side + 1 Soft Drink Can",
+        "price": 20.75,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "For You",
+        "name": "Merdeka 2 Pizza Deal",
+        "description": "2 Regular Pizza",
+        "price": 44.33,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Genshin Impact",
+        "name": "MyBox Pizza Genshin - Standard",
+        "description": "1 Main + 1 Side + 1 Drink +Genshin Impact In-Game Rewards",
+        "price": 21.69,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Genshin Impact",
+        "name": "MyBox Melts Genshin - Standard",
+        "description": "1 Main + 1 Side + 1 Drink +Genshin Impact In-Game Rewards",
+        "price": 21.69,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Genshin Impact",
+        "name": "MyBox Pasta Genshin - Standard",
+        "description": "1 Main + 1 Side + 1 Drink +Genshin Impact In-Game Rewards",
+        "price": 21.69,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Genshin Impact",
+        "name": "MyBox Pizza Genshin - Plus",
+        "description": "1 Main + 1 Side + 1 Drink + Genshin Impact In-Game Rewards + 1 Rotating Standee",
+        "price": 27.35,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Genshin Impact",
+        "name": "MyBox Melts Genshin - Plus",
+        "description": "1 Main + 1 Side + 1 Drink + Genshin Impact In-Game Rewards + 1 Rotating Standee",
+        "price": 27.35,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Genshin Impact",
+        "name": "MyBox Pizza Genshin - Premium",
+        "description": "1 Main + 1 Side + 1 Drink + Genshin Impact In-Game Rewards + 1 Genshin Impact Mouse Mat",
+        "price": 46.22,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Genshin Impact",
+        "name": "MyBox Melts Genshin - Premium",
+        "description": "1 Main + 1 Side + 1 Drink + Genshin Impact In-Game Rewards + 1 Genshin Impact Mouse Mat",
+        "price": 46.22,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Rasa Malaysia",
+        "name": "MyBox Merdeka Pizza",
+        "description": "1 Pizza + 1 Side + 1 Drink",
+        "price": 20.75,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Rasa Malaysia",
+        "name": "MyBox Merdeka Melts",
+        "description": "1 Melts + 1 Side + 1 Drink",
+        "price": 20.75,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Rasa Malaysia",
+        "name": "MyBox Merdeka Pasta",
+        "description": "1 Pasta + 1 Side + 1 Drink",
+        "price": 20.75,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Rasa Malaysia",
+        "name": "WeCombo 4 Merdeka",
+        "description": "2 Regular Pizza + 2 Sides + 2 Cream of Mushroom Soup + 1.5L Coke",
+        "price": 62.25,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Rasa Malaysia",
+        "name": "WeCombo 6 Merdeka",
+        "description": "3 Regular Pizza + 3 Sides + 3 Cream of Mushroom Soup + 1.5L Coke",
+        "price": 95.27,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "What's New",
+        "name": "Regular Laksa Kari Pizza",
+        "description": "",
+        "price": 41.5,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "What's New",
+        "name": "Regular Durian Brulee Pizza",
+        "description": "",
+        "price": 41.5,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "What's New",
+        "name": "Huts Cheesy Lava Deal 2",
+        "description": "2 Huts Cheesy Lava Bites",
+        "price": 11.31,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "What's New",
+        "name": "Huts Cheesy Lava Triple Cheese Bites",
+        "description": "Huts Cheesy Lava Triple Cheese Bites",
+        "price": 7.54,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "What's New",
+        "name": "Huts Cheesy Lava Creamy Mushroom Chicken Bites",
+        "description": "Huts Cheesy Lava Creamy Mushroom Chicken Bites",
+        "price": 7.54,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "What's New",
+        "name": "Huts Cheesy Lava Chicken Pepperoni Bites",
+        "description": "Huts Cheesy Lava Chicken Pepperoni Bites",
+        "price": 7.54,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Limited Time Offer",
+        "name": "Merdeka 2 Pizza Deal",
+        "description": "2 Regular Pizza",
+        "price": 44.33,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Limited Time Offer",
+        "name": "Regular Fun 5 Flavours Pizza (Buy 1 Free 1)",
+        "description": "Single Topping in Exciting Flavours!",
+        "price": 69.96,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Duo",
+        "name": "MyBox Duo",
+        "description": "",
+        "price": 35.84,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Duo",
+        "name": "MyBox Duo Pizza",
+        "description": "",
+        "price": 35.84,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Duo",
+        "name": "MyBox Duo Pasta",
+        "description": "",
+        "price": 35.84,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Duo",
+        "name": "MyBox Duo Melts",
+        "description": "2 Mains + 2 Sides + 2 Drinks",
+        "price": 39.61,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Duo",
+        "name": "MyBox Duo Baked Rice",
+        "description": "2 Mains + 2 Sides + 2 Drinks",
+        "price": 35.84,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Sharing Combo (4-6Pax)",
+        "name": "WeCombo Pizza for 4",
+        "description": "2 Regular Pizza + 2 Sides + 2 Cream of Mushroom Soup + 1.5L Coke",
+        "price": 56.59,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Sharing Combo (4-6Pax)",
+        "name": "WeCombo Pasta for 4",
+        "description": "1 Regular Pizza + 2 Pasta + 2 Sides + 2 Cream of Mushroom Soup + 1.5L Coke",
+        "price": 56.59,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Sharing Combo (4-6Pax)",
+        "name": "WeCombo Pizza for 6",
+        "description": "3 Regular Pizza + 3 Sides + 3 Cream of Mushroom Soup + 1.5L Coke",
+        "price": 89.61,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Sharing Combo (4-6Pax)",
+        "name": "WeCombo Pasta for 6",
+        "description": "2 Regular Pizza + 2 Pasta + 3 Sides + 3 Cream of Mushroom Soup + 1.5L Coke",
+        "price": 89.61,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Sharing Combo (4-6Pax)",
+        "name": "Pizza Duo Deals",
+        "description": "2 Regular Pizza + 2 Creamy Mushroom Soup + 1 Breadstix",
+        "price": 56.59,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Pizza - Meal For 1",
+        "name": "MyBox Savers - Pizza",
+        "description": "1 Personal Pizza + 3pcs of Cheddar / Cinnamon Breadstix",
+        "price": 13.2,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Pizza - Meal For 1",
+        "name": "MyBox Breadstix",
+        "description": "1 Personal Pizza + 3pcs Cheddar/Cinnamon Breadstix + 1 Soft Drink Can",
+        "price": 18.86,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Pizza - Meal For 1",
+        "name": "MyBox Classic",
+        "description": "1 personal pizza + 1 Garlic Bread + 1  Creamy Mushroom Soup",
+        "price": 19.8,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Pizza - Meal For 1",
+        "name": "MyBox Crispy Fries",
+        "description": "1 Personal Pizza + 1 Crispy Fries + 1 Soft Drink Can",
+        "price": 18.86,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Pizza - Meal For 1",
+        "name": "MyBox Huts Poppers Hash Bites",
+        "description": "1 Pizza + 1 Huts Poppers + 1 Drink",
+        "price": 18.86,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Pizza - Meal For 1",
+        "name": "MyBox Krispy Curly Fries",
+        "description": "1 Pizza + 1 Krispy Curly Fries + 1 Drink",
+        "price": 19.8,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Pizza - Meal For 1",
+        "name": "MyBox Onion Rings (NP33.90)",
+        "description": "1 Personal Pizza + 1 Onion Rings + 1 Soft Drink Can",
+        "price": 18.86,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Pizza - Meal For 1",
+        "name": "MyBox Potato Wedges",
+        "description": "1 Personal Pizza + 1 Potato Wedges + 1 Soft Drink Can",
+        "price": 18.86,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Pizza - Meal For 1",
+        "name": "MyBox Cheese Burger Pizza - Beef",
+        "description": "1 Cheese Burger Pizza + 1 Sides + 1 Drink",
+        "price": 21.68,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Pizza - Meal For 1",
+        "name": "MyBox Cheese Burger Pizza - Chicken",
+        "description": "1 Cheese Burger Pizza + 1 Sides + 1 Drink",
+        "price": 21.68,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Pizza - Meal For 1",
+        "name": "MyBox Tasty Chicken Bites",
+        "description": "1 Personal Pizza + 1 Tasty Chicken Bites + 1 Soft Drink Can",
+        "price": 22.63,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Pizza - Meal For 1",
+        "name": "MyBox Crispy Chicken Pops",
+        "description": "1 Personal Pizza + 1 Crispy Chicken Pops + 1 Soft Drink Can",
+        "price": 22.63,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Pizza - Meal For 1",
+        "name": "MyBox Krispy Wings",
+        "description": "1 Personal Pizza + 3pcs Krispy Wings + 1 Soft Drink Can",
+        "price": 27.35,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Pizza - Meal For 1",
+        "name": "MyBox New Orleans Drumettes",
+        "description": "1 Personal Pizza + 3 pcs New Orleans Drumettes + 1 Soft Drink Can",
+        "price": 24.52,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Pasta - Meal For 1",
+        "name": "MyBox Pasta Hut Poppers",
+        "description": "1 Pasta + 1 Crispy Chicken Pops / Tasty Chicken Bites + 1 Soft Drink Can",
+        "price": 22.63,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Pasta - Meal For 1",
+        "name": "MyBox Pasta Bread Sides",
+        "description": "1 Pasta + 1 Cinnamon/Cheddar Breadstix (3pcs) + 1 Soft Drink Can",
+        "price": 18.86,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Pasta - Meal For 1",
+        "name": "MyBox Pasta Classic",
+        "description": "1 Pasta + 1 Garlic Bread + 1 Soft Drink Can",
+        "price": 18.86,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Pasta - Meal For 1",
+        "name": "MyBox Pasta with Krispy Fries",
+        "description": "1 Pasta + 1 Onion Rings / Crispy Fries / Potato Wedges + 1 Soft Drink Can",
+        "price": 18.86,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Pasta - Meal For 1",
+        "name": "MyBox Pasta with Krispy Wings",
+        "description": "1 Pasta + Roasted Wings New Orleans + 1 Soft Drink Can",
+        "price": 24.52,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Pasta - Meal For 1",
+        "name": "MYBox Saver Pasta",
+        "description": "1 Pasta + 3pcs of Cheddar / Cinnamon Breadstix",
+        "price": 15.04,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Melts - Meal for 1",
+        "name": "MyBox Melts",
+        "description": "1 Melts + 1 Side + 1 Soft Drink Can",
+        "price": 20.75,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Melts - Meal for 1",
+        "name": "MyBox Melts Burger Beef",
+        "description": "1 Melts Burger + 1 Sides + 1 Drink",
+        "price": 25.46,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Melts - Meal for 1",
+        "name": "MyBox Melts Burger Chicken",
+        "description": "1 Melts Burger + 1 Sides + 1 Drink",
+        "price": 23.58,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Baked Rice - Meal For 1",
+        "name": "MyBox Baked Rice - Classic Tomato Chicken",
+        "description": "1 Baked Rice  + 1 Side + 1 Drink",
+        "price": 18.86,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Baked Rice - Meal For 1",
+        "name": "MyBox Baked Rice - Tom Yum Seafood",
+        "description": "1 Baked Rice  + 1 Side + 1 Drink",
+        "price": 18.86,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "MyBox Wings - Meal For 1",
+        "name": "MyWings Box",
+        "description": "6 pcs wingettes and drumettes + 1 Crispy Fries + 1 Soft Drink Can",
+        "price": 28.29,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Favorite Pizzas - Regular",
+        "name": "Regular Aloha Chicken",
+        "description": "Served with thousand island sauce, chicken rolls, chicken salami, pineapples, mozzarella cheese.",
+        "price": 35.84,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Favorite Pizzas - Regular",
+        "name": "Regular Beef Pepperoni",
+        "description": "Served with tomato sauce, beef pepperoni, mozzarella cheese.",
+        "price": 35.84,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Favorite Pizzas - Regular",
+        "name": "Regular Chicken Delight",
+        "description": "Topped with BBQ sauce, chicken meat, mushrooms, onions, and mozzarella cheese.",
+        "price": 35.84,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Favorite Pizzas - Regular",
+        "name": "Regular Chicken Pepperoni",
+        "description": "Served with tomato sauce, chicken pepperoni, and mozzarella cheese.",
+        "price": 35.84,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Favorite Pizzas - Regular",
+        "name": "Regular Deluxe Cheese",
+        "description": "Deluxe Cheese with tomato sauce, mozzarella cheese.",
+        "price": 35.84,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Favorite Pizzas - Regular",
+        "name": "Regular Hawaiian Chicken",
+        "description": "Served with tomato sauce, chicken meat, pineapples, mozzarella cheese.",
+        "price": 35.84,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Favorite Pizzas - Regular",
+        "name": "Regular Island Tuna",
+        "description": "Topped with thousand island sauce, tuna, pineapples, onions, and mozzarella cheese.",
+        "price": 35.84,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Favorite Pizzas - Regular",
+        "name": "Regular Veggie Lover",
+        "description": "Topped with tomato sauce, mushrooms, pineapples, tomatoes, capsicums, onions, and mozzarella cheese. (Contains garlic, onions and cheese which may not be suitable for vegetarians).",
+        "price": 35.84,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Favorite Pizzas - Regular",
+        "name": "Regular Chicken Sensation",
+        "description": "Topped with spicy sweet sour sauce, chicken meat, pineapples, onions, and mozzarella cheese.",
+        "price": 35.84,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Supreme Pizzas - Regular",
+        "name": "Regular Triple Chicken",
+        "description": "Topped with thousand island sauce, chicken rolls, chicken meat, chicken salami, mushrooms, tomatoes, onions, and mozzarella cheese.",
+        "price": 39.6,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Supreme Pizzas - Regular",
+        "name": "Regular Blazing Seafood",
+        "description": "Topped with spicy sweet sour sauce, tuna, crabsticks, pineapples, capsicums, onions, and mozzarella cheese.",
+        "price": 39.6,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Supreme Pizzas - Regular",
+        "name": "Regular Hawaiian Supreme",
+        "description": "Topped with tomato sauce, chicken meat, chicken loaf, pineapples, and mozzarella cheese.",
+        "price": 39.6,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Supreme Pizzas - Regular",
+        "name": "Regular Chicken Supreme",
+        "description": "Topped with tomato sauce, chicken meat, chicken salami, chicken loaf, mushrooms, capsicums, onions, and mozzarella cheese.",
+        "price": 39.6,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Supreme Pizzas - Regular",
+        "name": "Regular Super Supreme",
+        "description": "Topped with tomato sauce, ground beef, beef pepperoni, beef cabanossi, chicken loaf, mushrooms, pineapples, capsicums, olives, onions, mozzarella cheese.",
+        "price": 39.6,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Supreme Pizzas - Regular",
+        "name": "Regular Cheese Burger Pizza - Beef",
+        "description": "Cheeseburger flavours with ground beef, roasted onions, tomatoes, pickles, topped with special cheese sauce & mozzarella cheese",
+        "price": 39.6,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Supreme Pizzas - Regular",
+        "name": "Regular Cheese Burger Pizza - Chicken",
+        "description": "Cheeseburger flavours with chicken meat, roasted onions, tomatoes, pickles, topped with special cheese sauce & mozzarella cheese",
+        "price": 39.6,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Supreme Pizzas - Regular",
+        "name": "Regular Huts Signature Golden Shrimp",
+        "description": "",
+        "price": 41.49,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Supreme Pizzas - Regular",
+        "name": "Regular Huts Signature Meat Mania",
+        "description": "",
+        "price": 39.6,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Supreme Pizzas - Regular",
+        "name": "Regular Huts Signature Triple Chicken",
+        "description": "",
+        "price": 39.6,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Supreme Pizzas - Regular",
+        "name": "Regular Island Supreme",
+        "description": "Topped with thousand island sauce, crabsticks, tuna, pineapples, onions, and mozzarella cheese.",
+        "price": 39.6,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Fun 5 Pizzas - Regular",
+        "name": "Regular Fun Garlic Butter Chicken Pepperoni",
+        "description": "with garlic spread, chicken pepperoni, mozzarella cheese & drizzled with nachos cheese sauce",
+        "price": 34.9,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Fun 5 Pizzas - Regular",
+        "name": "Regular Fun Spicy Sausages",
+        "description": "with asam pedas sauce, chicken salami, mozzarella cheese & drizzled with nachos cheese sauce",
+        "price": 34.9,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Fun 5 Pizzas - Regular",
+        "name": "Regular Fun Sweet N Sour Mushroom",
+        "description": "with tomato sauce, mushrooms, pineapples, mozzarella cheese & drizzled with nachos cheese sauce",
+        "price": 34.9,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Fun 5 Pizzas - Regular",
+        "name": "Regular Fun Tangy Tuna",
+        "description": "with thousand island sauce, tuna, mozzarella cheese & drizzled with nachos cheese sauce",
+        "price": 34.9,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Favorite Pizzas - Large",
+        "name": "Large Aloha Chicken",
+        "description": "Served with thousand island sauce, chicken rolls, chicken salami, pineapples, mozzarella cheese.",
+        "price": 48.1,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Favorite Pizzas - Large",
+        "name": "Large Beef Pepperoni",
+        "description": "Served with tomato sauce, beef pepperoni, mozzarella cheese.",
+        "price": 48.1,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Favorite Pizzas - Large",
+        "name": "Large Chicken Delight",
+        "description": "Topped with BBQ sauce, chicken meat, mushrooms, onions, and mozzarella cheese.",
+        "price": 48.1,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Favorite Pizzas - Large",
+        "name": "Large Chicken Pepperoni",
+        "description": "Served with tomato sauce, chicken pepperoni, and mozzarella cheese.",
+        "price": 48.1,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Favorite Pizzas - Large",
+        "name": "Large Chicken Sensation",
+        "description": "Topped with spicy sweet sour sauce, chicken meat, pineapples, onions, and mozzarella cheese.",
+        "price": 48.1,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Favorite Pizzas - Large",
+        "name": "Large Deluxe Cheese",
+        "description": "Deluxe Cheese with tomato sauce, mozzarella cheese.",
+        "price": 48.1,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Favorite Pizzas - Large",
+        "name": "Large Hawaiian Chicken",
+        "description": "Served with tomato sauce, chicken meat, pineapples, mozzarella cheese.",
+        "price": 48.1,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Favorite Pizzas - Large",
+        "name": "Large Island Tuna",
+        "description": "Topped with thousand island sauce, tuna, pineapples, onions, and mozzarella cheese.",
+        "price": 48.1,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Favorite Pizzas - Large",
+        "name": "Large Veggie Lover",
+        "description": "Topped with tomato sauce, mushrooms, pineapples, tomatoes, capsicums, onions, and mozzarella cheese. (Contains garlic, onions and cheese which may not be suitable for vegetarians).",
+        "price": 48.1,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Supreme Pizzas - Large",
+        "name": "Large Blazing Seafood",
+        "description": "Topped with spicy sweet sour sauce, tuna, crabsticks, pineapples, capsicums, onions, and mozzarella cheese.",
+        "price": 52.81,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Supreme Pizzas - Large",
+        "name": "Large Cheese Burger Pizza - Beef",
+        "description": "Cheeseburger flavours with ground beef, roasted onions, tomatoes, pickles, topped with special cheese sauce & mozzarella cheese",
+        "price": 52.81,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Supreme Pizzas - Large",
+        "name": "Large Cheese Burger Pizza - Chicken",
+        "description": "Cheeseburger flavours with chicken meat, roasted onions, tomatoes, pickles, topped with special cheese sauce & mozzarella cheese",
+        "price": 52.81,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Supreme Pizzas - Large",
+        "name": "Large Chicken Supreme",
+        "description": "Topped with tomato sauce, chicken meat, chicken salami, chicken loaf, mushrooms, capsicums, onions, and mozzarella cheese.",
+        "price": 52.81,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Supreme Pizzas - Large",
+        "name": "Large Hawaiian Supreme",
+        "description": "Topped with tomato sauce, chicken meat, chicken loaf, pineapples, and mozzarella cheese.",
+        "price": 52.81,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Supreme Pizzas - Large",
+        "name": "Large Super Supreme",
+        "description": "Topped with tomato sauce, ground beef, beef pepperoni, beef cabanossi, chicken loaf, mushrooms, pineapples, capsicums, olives, onions, mozzarella cheese.",
+        "price": 52.81,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Supreme Pizzas - Large",
+        "name": "Large Triple Chicken",
+        "description": "Topped with thousand island sauce, chicken rolls, chicken meat, chicken salami, mushrooms, tomatoes, onions, and mozzarella cheese.",
+        "price": 52.81,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Supreme Pizzas - Large",
+        "name": "Large Island Supreme",
+        "description": "Topped with thousand island sauce, crabsticks, tuna, pineapples, onions, and mozzarella cheese.",
+        "price": 52.81,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Favorite Pizzas - Personal",
+        "name": "Personal Aloha Chicken",
+        "description": "Served with thousand island sauce, chicken rolls, chicken salami, pineapples, mozzarella cheese.",
+        "price": 14.71,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Favorite Pizzas - Personal",
+        "name": "Personal Beef Pepperoni",
+        "description": "Served with tomato sauce, beef pepperoni, mozzarella cheese.",
+        "price": 14.71,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Favorite Pizzas - Personal",
+        "name": "Personal Chicken Delight",
+        "description": "Topped with BBQ sauce, chicken meat, mushrooms, onions, and mozzarella cheese.",
+        "price": 14.71,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Favorite Pizzas - Personal",
+        "name": "Personal Chicken Pepperoni",
+        "description": "Served with tomato sauce, chicken pepperoni, and mozzarella cheese.",
+        "price": 14.71,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Favorite Pizzas - Personal",
+        "name": "Personal Chicken Sensation",
+        "description": "Topped with spicy sweet sour sauce, chicken meat, pineapples, onions, and mozzarella cheese.",
+        "price": 14.71,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Favorite Pizzas - Personal",
+        "name": "Personal Deluxe Cheese",
+        "description": "Deluxe Cheese with tomato sauce, mozzarella cheese.",
+        "price": 14.71,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Favorite Pizzas - Personal",
+        "name": "Personal Hawaiian Chicken",
+        "description": "Served with tomato sauce, chicken meat, pineapples, mozzarella cheese.",
+        "price": 14.71,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Favorite Pizzas - Personal",
+        "name": "Personal Island Tuna",
+        "description": "Topped with thousand island sauce, tuna, pineapples, onions, and mozzarella cheese.",
+        "price": 14.71,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Favorite Pizzas - Personal",
+        "name": "Personal Veggie Lover",
+        "description": "Topped with tomato sauce, mushrooms, pineapples, tomatoes, capsicums, onions, and mozzarella cheese. (Contains garlic, onions and cheese which may not be suitable for vegetarians).",
+        "price": 14.71,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Supreme Pizzas - Personal",
+        "name": "Personal Blazing Seafood",
+        "description": "Topped with spicy sweet sour sauce, tuna, crabsticks, pineapples, capsicums, onions, and mozzarella cheese.",
+        "price": 17.53,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Supreme Pizzas - Personal",
+        "name": "Personal Cheese Burger Pizza - Beef",
+        "description": "Cheeseburger flavours with ground beef, roasted onions, tomatoes, pickles, topped with special cheese sauce & mozzarella cheese",
+        "price": 17.53,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Supreme Pizzas - Personal",
+        "name": "Personal Cheese Burger Pizza - Chicken",
+        "description": "Cheeseburger flavours with chicken meat, roasted onions, tomatoes, pickles, topped with special cheese sauce & mozzarella cheese",
+        "price": 17.53,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Supreme Pizzas - Personal",
+        "name": "Personal Chicken Supreme",
+        "description": "Topped with tomato sauce, chicken meat, chicken salami, chicken loaf, mushrooms, capsicums, onions, and mozzarella cheese.",
+        "price": 17.53,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Supreme Pizzas - Personal",
+        "name": "Personal Hawaiian Supreme",
+        "description": "Topped with tomato sauce, chicken meat, chicken loaf, pineapples, and mozzarella cheese.",
+        "price": 17.53,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Supreme Pizzas - Personal",
+        "name": "Personal Super Supreme",
+        "description": "Topped with tomato sauce, ground beef, beef pepperoni, beef cabanossi, chicken loaf, mushrooms, pineapples, capsicums, olives, onions, mozzarella cheese.",
+        "price": 17.53,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Supreme Pizzas - Personal",
+        "name": "Personal Triple Chicken",
+        "description": "Topped with thousand island sauce, chicken rolls, chicken meat, chicken salami, mushrooms, tomatoes, onions, and mozzarella cheese.",
+        "price": 17.53,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Supreme Pizzas - Personal",
+        "name": "Personal Huts Signature Golden Shrimp",
+        "description": "",
+        "price": 19.42,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Supreme Pizzas - Personal",
+        "name": "Personal Huts Signature Meat Mania",
+        "description": "",
+        "price": 17.53,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Supreme Pizzas - Personal",
+        "name": "Personal Huts Signature Triple Chicken",
+        "description": "",
+        "price": 17.53,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Supreme Pizzas - Personal",
+        "name": "Personal Island Supreme",
+        "description": "Topped with thousand island sauce, crabsticks, tuna, pineapples, onions, and mozzarella cheese.",
+        "price": 17.53,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Favourite Pastas",
+        "name": "Chicken Bolognaise Spaghetti",
+        "description": "Served with tomato bolognaise sauce, chicken meatballs, and onions",
+        "price": 18.48,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Favourite Pastas",
+        "name": "Creamy Carbonara Spaghetti",
+        "description": "Served with creamy sauce, chicken rolls, mushrooms, garlic, and onions.",
+        "price": 18.48,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Favourite Pastas",
+        "name": "Salami Olio Spaghetti",
+        "description": "Spaghetti tossed in olive oil, chicken salami and capsicums. Slightly spicy with a dash of chilli flakes.",
+        "price": 18.48,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Favourite Pastas",
+        "name": "Asam Pedas Pasta",
+        "description": "Served with asam pedas sauce, chicken pepperoni, mushrooms, onions, garlic, capsicums, and chili flakes.",
+        "price": 18.48,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Favourite Pastas",
+        "name": "Salami Mac & Cheese",
+        "description": "Macaroni with creamy cheese sauce, chicken sausage and roasted mushroom.",
+        "price": 19.42,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Cheesy Pastas",
+        "name": "Cheesy Carbonara Spaghetti",
+        "description": "Spaghetti with Creamy Carbonara sauce, chicken rolls, mushrooms and herbs with cheesy sauce.",
+        "price": 20.37,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Cheesy Pastas",
+        "name": "Cheesy Chicken Meatball Bolo Spaghetti",
+        "description": "Spaghetti with Tomato Bolognaise sauce, topped with Chicken Meatballs served with cheesy sauce.",
+        "price": 20.37,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Cheesy Pastas",
+        "name": "Cheesy Salami Olio Spaghetti",
+        "description": "Spaghetti tossed in olive oil, chicken salami and capsicums. Slightly spicy with a dash of chilli flakes with cheesy sauce.",
+        "price": 20.37,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Cheesy Pastas",
+        "name": "Cheesy Tom Yum Seafood Spaghetti",
+        "description": "Spaghetti with Tom Yum sauce, topped with Krispy Prawn served with cheesy sauce.",
+        "price": 22.25,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Melts Favorite",
+        "name": "Aloha Lover (2pcs)",
+        "description": "Crunchy wrap loaded with Thousand Island sauce, shredded chicken, chicken roll strips, pineapple, mozzarella cheese & nacho cheese, finished with garlic spread.",
+        "price": 17.54,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Melts Favorite",
+        "name": "BBQ Chicken (2pcs)",
+        "description": "Crunchy wrap loaded with BBQ sauce, shredded chicken, chicken roll strips, roasted onions, mozzarella cheese & nacho cheese, finished with garlic spread.",
+        "price": 17.54,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Melts Favorite",
+        "name": "Chicken Mania (2pcs)",
+        "description": "Crunchy Wrap loaded with triple chicken goodness (Chicken Pepperoni, chicken roll strips & chicken salami), mozeralla cheese, nacho cheese, finished with garlic spread.",
+        "price": 17.54,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Melts Favorite",
+        "name": "Surf's Up (2pcs)",
+        "description": "Crunchy wrap loaded with Thousand Island sauce, tuna, crabmeat, pineapple, roasted onions, mozzarella cheese & nacho cheese, finished with garlic spread.",
+        "price": 17.54,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Hut's Sliders",
+        "name": "Hut's Sliders - Meatball Bolognaise Chicken",
+        "description": "Who says meatball only comes with spaghetti? Enjoy the juicy chicken meatball, topped with roasted onions, mozzarella cheese and nacho cheese sauce",
+        "price": 13.2,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Hut's Sliders",
+        "name": "Hut's Sliders - Cream of Mushroom Soup",
+        "description": "This mushroom soup - not in a bowl! Feel the warmth and comfort with the rich sliced mushroom topped with nacho cheese sauce and mozzarella cheese",
+        "price": 13.2,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Hut's Sliders",
+        "name": "Hut's Sliders - Cheeseburger Beef",
+        "description": "Loaded with juicy beef patty, roasted onions, tomatoes and pickles, topped with mozzarella cheese",
+        "price": 13.2,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Hut's Sliders",
+        "name": "Hut's Sliders - Lemongrass Chilli Seafood",
+        "description": "Excite your tastebud with the loaded seafood, roasted onions, topped with nacho cheese sauce and mozzarella cheese",
+        "price": 13.2,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Hut's Sliders",
+        "name": "Hut's Sliders Combo",
+        "description": "1 Hut's Sliders + 1 Sides + 1 Drink",
+        "price": 18.86,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Cheese Baked Rice",
+        "name": "Cheese Tarik Baked Rice - Classic Tomato Chicken",
+        "description": "",
+        "price": 20.37,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Cheese Baked Rice",
+        "name": "Cheese Tarik Baked Rice - Creamy Chicken",
+        "description": "",
+        "price": 20.37,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Cheese Baked Rice",
+        "name": "Cheese Tarik Baked Rice - Tom Yum Seafood",
+        "description": "",
+        "price": 20.37,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Favorite Baked Rice",
+        "name": "Baked Rice Creamy Chicken",
+        "description": "",
+        "price": 18.48,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Wingstreets - Krispy Wings",
+        "name": "Krispy Wings - Original (Big Bucket)",
+        "description": "Juicy original golden crispy wings served to perfection with light crunchiness bites in a bucket.",
+        "price": 44.33,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Wingstreets - Krispy Wings",
+        "name": "Krispy Wings - BBQ (Big Bucket)",
+        "description": "Juicy original golden crispy wings tossed with barbeque sauce served to perfection in a bucket.",
+        "price": 46.22,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Wingstreets - Krispy Wings",
+        "name": "Krispy Wings - Cheese (Big Bucket)",
+        "description": "Juicy original golden crispy wings tossed with tangy cheese served to perfection in a bucket.",
+        "price": 46.22,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Wingstreets - Krispy Wings",
+        "name": "Krispy Wings - Original (Mini Bucket)",
+        "description": "Juicy original golden crispy wings served to perfection with light crunchiness bites in a bucket.",
+        "price": 18.86,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Wingstreets - Krispy Wings",
+        "name": "Krispy Wings - BBQ (Mini Bucket)",
+        "description": "Juicy original golden crispy wings tossed with barbeque sauce served to perfection in a bucket.",
+        "price": 20.75,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Wingstreets - Krispy Wings",
+        "name": "Krispy Wings - Cheese (Mini Bucket)",
+        "description": "Juicy original golden crispy wings tossed with tangy cheese served to perfection in a bucket.",
+        "price": 20.75,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Wingstreets - Roasted Wings",
+        "name": "Roasted Wings - Deli Wings 2pcs",
+        "description": "Chicken Wings marinated in aromatic spices and smoked to perfection.",
+        "price": 16.03,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Wingstreets - Roasted Wings",
+        "name": "Roasted Wings - Deli Wings 4pcs",
+        "description": "Chicken Wings marinated in aromatic spices and smoked to perfection.",
+        "price": 25.46,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Wingstreets - Roasted Wings",
+        "name": "Roasted Wings - New Orleans (Mini Bucket)",
+        "description": "Oven roasted drumettes in New Orlean's style marinade",
+        "price": 24.52,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Wingstreet Combo",
+        "name": "Wings Party for 2",
+        "description": "12pcs wingettes and drumettes + 1 Crispy Fries / Potato Wedges + 1.5L Coke.",
+        "price": 53.76,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Wingstreet Combo",
+        "name": "Wings Party for 4",
+        "description": "12pcs wingettes and drumettes + 2 Breadstix + 4 Creamy Mushroom Soups.",
+        "price": 57.54,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Wingstreet Combo",
+        "name": "Wings Sampler",
+        "description": "3 Signature Krispy Wings flavours (Original/BBQ/Tangy Cheese/3 Rasa). 12 pcs wingettes and drumettes + 1 Crispy Fries / Potato Wedges + 1 Breadstix.",
+        "price": 49.99,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Huts Signature Side",
+        "name": "Cream of Mushroom Soup",
+        "description": "A hearty bowl of rich mushroom soup",
+        "price": 7.07,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Huts Signature Side",
+        "name": "Garlic Bread",
+        "description": "Garlic and butter on a sesame seed bun",
+        "price": 9.42,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Krispy Bites",
+        "name": "Krispy Chicken Fries",
+        "description": "Fried chicken tenders",
+        "price": 12.25,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Krispy Bites",
+        "name": "Krispy Curly Fries",
+        "description": "Golden fried curly potato fries.",
+        "price": 10.37,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Krispy Bites",
+        "name": "Krispy Fries",
+        "description": "Crispy Fries",
+        "price": 8.48,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Krispy Bites",
+        "name": "Krispy Prawn",
+        "description": "Golden fried prawn fried to perfection",
+        "price": 14.14,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Krispy Bites",
+        "name": "Krispy Wedges",
+        "description": "Fried Potato Wedges",
+        "price": 9.42,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Krispy Bites",
+        "name": "Krispy Onion Rings",
+        "description": "Fried Onion Rings",
+        "price": 10.37,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Huts Breadstix",
+        "name": "Huts Breadstix Cheesy",
+        "description": "Breadstix with cheedar cheese",
+        "price": 8.48,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Huts Breadstix",
+        "name": "Huts Breadstix Cinnamon",
+        "description": "Breadstix with cinnamon sugar",
+        "price": 8.48,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Huts Poppers",
+        "name": "Huts Poppers Cheesy",
+        "description": "Crispy cheesy bites fried to perfections",
+        "price": 13.2,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Huts Poppers",
+        "name": "Huts Poppers Chicken Bites",
+        "description": "Pan fried chicken rolls wrapped in a crispy beancurd skin",
+        "price": 12.25,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Huts Poppers",
+        "name": "Huts Poppers Crispy Chicken",
+        "description": "Juices crispy chicken fried to perfections",
+        "price": 13.21,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Huts Poppers",
+        "name": "Huts Poppers Hash Bites",
+        "description": "Golden fried tater tots",
+        "price": 9.42,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Huts Poppers",
+        "name": "Huts Poppers Sausage",
+        "description": "Crispy sausage fried to perfection",
+        "price": 11.31,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Hut's Lava",
+        "name": "Huts Chocolate Lava Cake",
+        "description": "Huts Chocolate Lava Cake",
+        "price": 13.2,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Hut's Lava",
+        "name": "Huts Moist Chocolate Cake",
+        "description": "Huts Moist Chocolate Cake",
+        "price": 10.37,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "All Time Favorite Sides",
+        "name": "Mama Mia Chicken Meatballs",
+        "description": "Chicken meatballs with chunky tomato sauce and mozarella cheese",
+        "price": 18.86,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Drinks",
+        "name": "Coca-Cola Rasa Asli",
+        "description": "Soft Drink",
+        "price": 7.16,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Drinks",
+        "name": "Coca-Cola Rasa Asli 1.5L",
+        "description": "Soft Drink",
+        "price": 9.42,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Drinks",
+        "name": "Coca-Cola Zero Sugar",
+        "description": "Soft Drink",
+        "price": 7.16,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Drinks",
+        "name": "Coca-Cola Zero Sugar 1.5L",
+        "description": "Soft Drink",
+        "price": 9.42,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Drinks",
+        "name": "Fuze Lemon Tea",
+        "description": "Soft Drink",
+        "price": 7.16,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Drinks",
+        "name": "Mineral Water",
+        "description": "Mineral",
+        "price": 3.77,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Drinks",
+        "name": "Red Bull",
+        "description": "Soft Drink",
+        "price": 11.31,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Drinks",
+        "name": "Sprite Can",
+        "description": "Soft Drink",
+        "price": 7.16,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Bichi Mao",
+        "name": "Bichi Mao Hut's Sliders Combo",
+        "description": "1 Main + 1 Side + 1 Drink",
+        "price": 20.75,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Bichi Mao",
+        "name": "Bichi Mao MyBox Duo Pizza & Melts",
+        "description": "2 Main + 2 Side + 2 Drink+ 1 Sticker",
+        "price": 39.6,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Bichi Mao",
+        "name": "Bichi Mao MyBox Duo Pasta & Baked Rice",
+        "description": "2 Main + 2 Side + 2 Drink+ 1 Sticker",
+        "price": 39.6,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Bichi Mao",
+        "name": "Bichi Mao MyBox Sliders Combo",
+        "description": "1 MyBox Pizza + 1 Hut's Sliders Combo + 1 Sticker",
+        "price": 39.6,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Melts Burger",
+        "name": "Melts Burger Beef (2pcs)",
+        "description": "Crunchy wrap loaded with juicy Beef Patty, roasted onions, tomatoes and pickles, topped with special cheese sauce & mozzarella cheese, finished with garlic spread.",
+        "price": 22.25,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Melts Burger",
+        "name": "Melts Burger Chicken (2pcs)",
+        "description": "Crunchy wrap loaded with juicy Chicken Patty, roasted onions, tomatoes and pickles, topped with special cheese sauce & mozzarella cheese, finished with garlic spread.",
+        "price": 20.37,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Melts Burger",
+        "name": "Melts Burger Double Beef (2pcs)",
+        "description": "Crunchy wrap loaded with juicy Beef Patty, roasted onions, tomatoes and pickles, topped with special cheese sauce & mozzarella cheese, finished with garlic spread.",
+        "price": 26.97,
+        "currency": "MYR",
+        "source": "grabfood"
+      },
+      {
+        "category": "Melts Burger",
+        "name": "Melts Burger Double Chicken (2pcs)",
+        "description": "Crunchy wrap loaded with juicy Chicken Patty, roasted onions, tomatoes and pickles, topped with special cheese sauce & mozzarella cheese, finished with garlic spread.",
+        "price": 25.08,
+        "currency": "MYR",
+        "source": "grabfood"
+      }
+    ]
   },
   {
     "id": 16,

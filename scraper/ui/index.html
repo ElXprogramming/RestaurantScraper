@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RestaurantScraper | Local Menu Extraction & Database Engine</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#ecfeff',
+              400: '#22d3ee',
+              500: '#06b6d4',
+              600: '#0891b2',
+              900: '#164e63',
+            },
+            dark: {
+              800: '#1e293b',
+              850: '#172033',
+              900: '#0f172a',
+              950: '#020617',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    code, pre, .font-mono { font-family: 'JetBrains Mono', monospace; }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glow-cyan { box-shadow: 0 0 25px -5px rgba(6, 182, 212, 0.25); }
+    .glow-emerald { box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.25); }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+  </style>
+</head>
+<body class="bg-dark-950 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-brand-500 selection:text-white">
+
+  <!-- Top Navigation Header -->
+  <header class="border-b border-slate-800 bg-dark-900/80 backdrop-blur sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-emerald-400 flex items-center justify-center shadow-lg shadow-cyan-500/20 text-slate-950 font-black text-xl">
+          🍽️
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-lg tracking-tight bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent">RestaurantScraper</span>
+            <span class="text-xs px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700 font-mono">v0.2.0</span>
+          </div>
+          <p class="text-xs text-slate-400 hidden sm:block">Local Menu Extraction • SQLite Database • Fast Export</p>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="flex items-center gap-1 bg-slate-900/90 p-1 rounded-xl border border-slate-800">
+        <button id="tabBtnExplorer" onclick="switchTab('explorer')" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium transition flex items-center gap-2 bg-brand-500 text-white shadow">
+          <span>📂</span>
+          <span>Database Explorer</span>
+        </button>
+        <button id="tabBtnScraper" onclick="switchTab('scraper')" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium transition flex items-center gap-2 text-slate-400 hover:text-white">
+          <span>⚡</span>
+          <span>Scraper Studio</span>
+        </button>
+        <button id="tabBtnExport" onclick="switchTab('export')" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium transition flex items-center gap-2 text-slate-400 hover:text-white">
+          <span>📤</span>
+          <span>Export Center</span>
+        </button>
+      </nav>
+
+      <!-- Live DB Health Badge -->
+      <div class="hidden lg:flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-emerald-950/40 border border-emerald-800/50 text-xs text-emerald-300">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span id="headerDbStats">menus.db • Connected</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+    <!-- ========================================== -->
+    <!-- TAB 1: ORGANIZED DATABASE EXPLORER         -->
+    <!-- ========================================== -->
+    <section id="tabExplorer" class="tab-content space-y-6">
+
+      <!-- Metrics Overview Cards -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="glass-card rounded-2xl p-4 relative overflow-hidden">
+          <div class="text-xs text-slate-400 uppercase font-semibold tracking-wider">Restaurants</div>
+          <div id="statTotalRests" class="text-2xl sm:text-3xl font-extrabold text-white mt-1">--</div>
+          <div id="statWithMenu" class="text-xs text-emerald-400 mt-1 font-medium">-- with full menus</div>
+          <div class="absolute -right-3 -bottom-3 text-4xl opacity-10">🏢</div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-4 relative overflow-hidden">
+          <div class="text-xs text-slate-400 uppercase font-semibold tracking-wider">Total Menu Items</div>
+          <div id="statTotalItems" class="text-2xl sm:text-3xl font-extrabold text-emerald-400 mt-1">--</div>
+          <div id="statAvgPrice" class="text-xs text-slate-400 mt-1">Avg: RM --</div>
+          <div class="absolute -right-3 -bottom-3 text-4xl opacity-10">🍲</div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-4 relative overflow-hidden">
+          <div class="text-xs text-slate-400 uppercase font-semibold tracking-wider">GrabFood Sources</div>
+          <div id="statGrabCount" class="text-2xl sm:text-3xl font-extrabold text-green-400 mt-1">--</div>
+          <div class="text-xs text-slate-400 mt-1">Active delivery menus</div>
+          <div class="absolute -right-3 -bottom-3 text-4xl opacity-10">🛵</div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-4 relative overflow-hidden">
+          <div class="text-xs text-slate-400 uppercase font-semibold tracking-wider">Coverage Area</div>
+          <div id="statAreas" class="text-2xl sm:text-3xl font-extrabold text-cyan-400 mt-1">2 Areas</div>
+          <div class="text-xs text-slate-400 mt-1">1Borneo & Alamesra</div>
+          <div class="absolute -right-3 -bottom-3 text-4xl opacity-10">📍</div>
+        </div>
+      </div>
+
+      <!-- Search, Filters, and Actions Bar -->
+      <div class="glass-card rounded-2xl p-4 space-y-3">
+        <div class="flex flex-col md:flex-row gap-3 items-center justify-between">
+          
+          <!-- Search input -->
+          <div class="relative w-full md:w-96">
+            <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">🔍</span>
+            <input 
+              id="searchInput" 
+              type="text" 
+              placeholder="Search restaurant name, item, cuisine..." 
+              oninput="debounceSearch()" 
+              class="w-full pl-9 pr-4 py-2 bg-slate-900 border border-slate-700/80 rounded-xl text-sm focus:outline-none focus:border-cyan-500 transition text-slate-100 placeholder-slate-500"
+            />
+          </div>
+
+          <!-- Filters -->
+          <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
+            <!-- Area Filter -->
+            <select id="filterArea" onchange="loadRestaurants()" class="bg-slate-900 border border-slate-700/80 rounded-xl px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-cyan-500">
+              <option value="">All Areas</option>
+              <option value="1borneo">1Borneo Hypermall</option>
+              <option value="alamesra">Alamesra Plaza</option>
+            </select>
+
+            <!-- Menu Status -->
+            <select id="filterMenu" onchange="loadRestaurants()" class="bg-slate-900 border border-slate-700/80 rounded-xl px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-cyan-500">
+              <option value="">All Restaurants</option>
+              <option value="true">Has Menu Items</option>
+              <option value="false">Needs Scraping</option>
+            </select>
+
+            <!-- Sort By -->
+            <select id="sortBy" onchange="loadRestaurants()" class="bg-slate-900 border border-slate-700/80 rounded-xl px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-cyan-500">
+              <option value="name">Name (A-Z)</option>
+              <option value="items">Most Items</option>
+              <option value="rating">Highest Rating</option>
+              <option value="price">Lowest Avg Price</option>
+              <option value="updated">Recently Updated</option>
+            </select>
+
+            <button onclick="loadRestaurants()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm transition font-medium">
+              ↻ Refresh
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Organized Restaurant List Table -->
+      <div class="glass-card rounded-2xl overflow-hidden shadow-xl">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-slate-800 bg-slate-900/90 text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                <th class="py-3.5 px-4">Restaurant</th>
+                <th class="py-3.5 px-4">Area & Address</th>
+                <th class="py-3.5 px-4">Cuisine</th>
+                <th class="py-3.5 px-4">Rating</th>
+                <th class="py-3.5 px-4 text-right">Menu Items</th>
+                <th class="py-3.5 px-4 text-right">Avg Price</th>
+                <th class="py-3.5 px-4 text-center">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="restaurantTableBody" class="divide-y divide-slate-800/60 text-sm">
+              <tr>
+                <td colspan="7" class="py-12 text-center text-slate-500">Loading restaurants...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div id="tableFooter" class="px-4 py-3 bg-slate-900/60 border-t border-slate-800 text-xs text-slate-400 flex justify-between items-center">
+          <span id="showingCount">Showing 0 restaurants</span>
+          <span>Click <strong class="text-cyan-400">Inspect Menu</strong> to view categorized catalog</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 2: SCRAPER STUDIO                      -->
+    <!-- ========================================== -->
+    <section id="tabScraper" class="tab-content hidden space-y-6">
+      
+      <!-- Scraper Form Card -->
+      <div class="glass-card rounded-2xl p-6 glow-cyan">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h2 class="text-xl font-bold text-white flex items-center gap-2">
+              <span>⚡</span>
+              <span>Universal Menu Scraper</span>
+            </h2>
+            <p class="text-sm text-slate-400 mt-1">Extract food menus, prices, and categories from GrabFood, Foodpanda, or website links directly into SQLite.</p>
+          </div>
+          <span id="scrapeStatusBadge" class="px-3 py-1 rounded-full text-xs font-semibold bg-slate-800 text-slate-400 border border-slate-700">
+            Engine Idle
+          </span>
+        </div>
+
+        <form id="scrapeForm" onsubmit="handleScrapeSubmit(event)" class="space-y-4">
+          <div>
+            <label class="block text-xs font-semibold uppercase text-slate-300 mb-1.5">Target URL (GrabFood / foodpanda / Website)</label>
+            <div class="relative">
+              <input 
+                id="scrapeUrl" 
+                type="url" 
+                required 
+                placeholder="https://food.grab.com/my/en/restaurant/... or https://restaurant-website.com" 
+                class="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-xl text-sm focus:outline-none focus:border-cyan-500 font-mono text-cyan-300 placeholder-slate-600 transition"
+              />
+            </div>
+          </div>
+
+          <!-- Collapsible Advanced Options -->
+          <details class="bg-slate-900/60 rounded-xl border border-slate-800/80 p-3 text-sm">
+            <summary class="cursor-pointer font-medium text-slate-300 select-none flex items-center justify-between">
+              <span>⚙️ Optional Overrides & Configuration</span>
+              <span class="text-xs text-slate-500 font-normal">Name, Cuisine, Area, Headless Browser</span>
+            </summary>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4 pt-3 border-t border-slate-800">
+              <div>
+                <label class="block text-xs text-slate-400 mb-1">Restaurant Name Override</label>
+                <input id="scrapeName" type="text" placeholder="Auto-detected if blank" class="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs" />
+              </div>
+              <div>
+                <label class="block text-xs text-slate-400 mb-1">Area</label>
+                <select id="scrapeArea" class="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs">
+                  <option value="">Auto-infer from URL/Address</option>
+                  <option value="1borneo">1Borneo Hypermall</option>
+                  <option value="alamesra">Alamesra Plaza</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs text-slate-400 mb-1">Cuisine Tags</label>
+                <input id="scrapeCuisine" type="text" placeholder="e.g. Malaysian, Fast Food" class="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs" />
+              </div>
+            </div>
+            <div class="mt-3 flex items-center gap-2">
+              <input id="scrapeRender" type="checkbox" class="rounded bg-slate-900 border-slate-700 text-cyan-500 focus:ring-0" />
+              <label for="scrapeRender" class="text-xs text-slate-300">Use Headless Chromium Rendering (Recommended for JS-rendered websites and GrabFood sniffing)</label>
+            </div>
+          </details>
+
+          <!-- Buttons -->
+          <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+            <div class="flex items-center gap-2 text-xs text-slate-400">
+              <span>Presets:</span>
+              <button type="button" onclick="setPreset('grab')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 transition">GrabFood</button>
+              <button type="button" onclick="setPreset('alamesra')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 transition">Alamesra Grab</button>
+            </div>
+
+            <button 
+              id="scrapeSubmitBtn" 
+              type="submit" 
+              class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-500 hover:from-cyan-400 hover:to-emerald-400 text-slate-950 font-bold text-sm shadow-lg shadow-cyan-500/25 transition flex items-center gap-2 cursor-pointer"
+            >
+              <span>🚀 Run Scraper</span>
+            </button>
+          </div>
+        </form>
+
+        <!-- Live Execution Output Console -->
+        <div id="scrapeConsole" class="mt-6 hidden space-y-3">
+          <div class="flex items-center justify-between text-xs text-slate-400">
+            <span class="font-mono">Execution Log</span>
+            <span id="scrapeTimer" class="font-mono">--</span>
+          </div>
+          <div id="scrapeLogBox" class="p-4 rounded-xl bg-slate-950 border border-slate-800 font-mono text-xs text-slate-300 space-y-1 max-h-48 overflow-y-auto">
+            <!-- Dynamic logs -->
+          </div>
+        </div>
+
+        <!-- Scraping Result Card -->
+        <div id="scrapeResultCard" class="mt-6 hidden glass-card rounded-xl p-5 border border-emerald-500/30">
+          <div class="flex items-center justify-between">
+            <div>
+              <span class="text-xs px-2 py-0.5 rounded bg-emerald-950 border border-emerald-700/60 text-emerald-300 font-mono font-medium">Scrape Succeeded</span>
+              <h3 id="resultName" class="text-lg font-bold text-white mt-1">--</h3>
+              <p id="resultMeta" class="text-xs text-slate-400">--</p>
+            </div>
+            <div class="text-right">
+              <div id="resultCount" class="text-2xl font-black text-emerald-400">0</div>
+              <div class="text-xs text-slate-400">Items Scraped</div>
+            </div>
+          </div>
+
+          <!-- Scraped preview table -->
+          <div class="mt-4 max-h-60 overflow-y-auto rounded-lg border border-slate-800">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-900 text-slate-400 sticky top-0">
+                <tr>
+                  <th class="py-2 px-3">Category</th>
+                  <th class="py-2 px-3">Item Name</th>
+                  <th class="py-2 px-3 text-right">Price (MYR)</th>
+                </tr>
+              </thead>
+              <tbody id="resultItemsTable" class="divide-y divide-slate-800 font-mono">
+                <!-- Preview rows -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Area Discovery Card -->
+      <div class="glass-card rounded-2xl p-6">
+        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+          <span>🗺️</span>
+          <span>Venue Discovery (OSM Overpass)</span>
+        </h3>
+        <p class="text-sm text-slate-400 mt-1">Search OpenStreetMap for registered restaurants and eateries around 1Borneo and Alamesra to seed the database.</p>
+        
+        <div class="flex flex-wrap items-center gap-3 mt-4">
+          <select id="discoverSource" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-200">
+            <option value="osm">OpenStreetMap Overpass (Free, No API Key)</option>
+            <option value="google">Google Places (Requires GOOGLE_PLACES_API_KEY)</option>
+            <option value="all">Query Both Sources</option>
+          </select>
+          <button onclick="runDiscovery()" id="discoverBtn" class="px-5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-cyan-800/40 text-sm font-semibold transition flex items-center gap-2">
+            <span>Scan Area Venues</span>
+          </button>
+        </div>
+        <div id="discoverStatus" class="text-xs text-slate-400 mt-2 font-mono"></div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 3: EXPORT CENTER                       -->
+    <!-- ========================================== -->
+    <section id="tabExport" class="tab-content hidden space-y-6">
+      
+      <div class="glass-card rounded-2xl p-6">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          <span>📤</span>
+          <span>Data Export Center</span>
+        </h2>
+        <p class="text-sm text-slate-400 mt-1">Download clean, formatted, formula-sanitized datasets ready for research, analysis, Excel, or downstream systems.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+          
+          <!-- CSV Export Card -->
+          <div class="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 flex flex-col justify-between hover:border-slate-700 transition">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-2xl">📊</span>
+                <span class="text-xs font-mono px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">CSV (Excel-Ready)</span>
+              </div>
+              <h3 class="text-lg font-bold text-white mt-3">Menu Items Catalog (CSV)</h3>
+              <p class="text-xs text-slate-400 mt-1">
+                Tabular format containing restaurant name, area, cuisine, rating, category, item name, description, price (MYR), and source URL. Protected against CSV injection.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+              <span id="exportCsvCount" class="text-xs text-slate-400 font-mono">-- records</span>
+              <a href="/api/export/csv" download="menu_items.csv" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition shadow-lg shadow-emerald-600/20 flex items-center gap-1.5">
+                <span>⬇ Download CSV</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- JSON Export Card -->
+          <div class="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 flex flex-col justify-between hover:border-slate-700 transition">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-2xl">📦</span>
+                <span class="text-xs font-mono px-2 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800">JSON (Hierarchical)</span>
+              </div>
+              <h3 class="text-lg font-bold text-white mt-3">Restaurants & Menus (JSON)</h3>
+              <p class="text-xs text-slate-400 mt-1">
+                Structured nested JSON dataset containing full restaurant profiles, operating hours, coordinates, and complete nested menu item catalogs.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+              <span id="exportJsonCount" class="text-xs text-slate-400 font-mono">-- restaurants</span>
+              <a href="/api/export/json" download="restaurants.json" class="px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-xs transition shadow-lg shadow-cyan-600/20 flex items-center gap-1.5">
+                <span>⬇ Download JSON</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Regenerate Disk Files -->
+        <div class="mt-8 pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div>
+            <h4 class="text-sm font-semibold text-white">Regenerate Local Disk Files</h4>
+            <p class="text-xs text-slate-400">Re-writes <code class="text-cyan-400">exports/menu_items.csv</code> and <code class="text-cyan-400">exports/restaurants.json</code> on disk.</p>
+          </div>
+          <button onclick="triggerDiskExport()" id="diskExportBtn" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold border border-slate-700 transition flex items-center gap-2">
+            <span>💾 Write to exports/ directory</span>
+          </button>
+        </div>
+        <div id="diskExportStatus" class="mt-2 text-xs font-mono text-emerald-400 hidden"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================== -->
+  <!-- MODAL: ORGANIZED MENU CATALOG INSPECTOR    -->
+  <!-- ========================================== -->
+  <div id="menuModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-dark-900 border border-slate-800 rounded-2xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden shadow-2xl">
+      
+      <!-- Modal Header -->
+      <div class="p-5 border-b border-slate-800 flex items-start justify-between bg-dark-950/80">
+        <div>
+          <div class="flex items-center gap-2">
+            <h3 id="modalRestName" class="text-xl font-bold text-white">Restaurant Name</h3>
+            <span id="modalRestArea" class="text-xs px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">Area</span>
+            <span id="modalRestRating" class="text-xs px-2 py-0.5 rounded bg-amber-950/60 text-amber-400 border border-amber-800/40 font-semibold">⭐ 0.0</span>
+          </div>
+          <p id="modalRestMeta" class="text-xs text-slate-400 mt-1">Address • Opening Hours • Links</p>
+        </div>
+        <button onclick="closeModal()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center text-lg font-bold transition">
+          ✕
+        </button>
+      </div>
+
+      <!-- Modal Category Tabs and Search -->
+      <div class="px-5 py-3 border-b border-slate-800 bg-slate-900/60 flex flex-wrap items-center justify-between gap-3">
+        <!-- Category Filter Pills -->
+        <div id="modalCategoryPills" class="flex items-center gap-1.5 overflow-x-auto py-1 max-w-xl">
+          <!-- Dynamically populated category buttons -->
+        </div>
+
+        <!-- Filter within menu -->
+        <input 
+          id="modalSearchInput" 
+          type="text" 
+          placeholder="Filter menu items..." 
+          oninput="filterModalItems()" 
+          class="px-3 py-1.5 bg-slate-950 border border-slate-700 rounded-lg text-xs w-48 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+        />
+      </div>
+
+      <!-- Modal Menu Items Catalog Body -->
+      <div id="modalCatalogBody" class="p-5 overflow-y-auto space-y-6 flex-1">
+        <!-- Categorized items table/grid dynamically rendered -->
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="p-4 border-t border-slate-800 bg-dark-950/80 flex items-center justify-between text-xs text-slate-400">
+        <span id="modalItemsSummary">0 items loaded</span>
+        <button onclick="closeModal()" class="px-4 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium transition">
+          Close Inspector
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Client Logic -->
+  <script>
+    let currentRestaurants = [];
+    let currentModalDetail = null;
+    let selectedCategory = 'ALL';
+    let searchDebounceTimer = null;
+
+    // --- TAB SWITCHING ---
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-brand-500', 'text-white', 'shadow');
+        btn.classList.add('text-slate-400');
+      });
+
+      if (tabId === 'explorer') {
+        document.getElementById('tabExplorer').classList.remove('hidden');
+        document.getElementById('tabBtnExplorer').classList.add('bg-brand-500', 'text-white', 'shadow');
+        document.getElementById('tabBtnExplorer').classList.remove('text-slate-400');
+        loadRestaurants();
+      } else if (tabId === 'scraper') {
+        document.getElementById('tabScraper').classList.remove('hidden');
+        document.getElementById('tabBtnScraper').classList.add('bg-brand-500', 'text-white', 'shadow');
+        document.getElementById('tabBtnScraper').classList.remove('text-slate-400');
+      } else if (tabId === 'export') {
+        document.getElementById('tabExport').classList.remove('hidden');
+        document.getElementById('tabBtnExport').classList.add('bg-brand-500', 'text-white', 'shadow');
+        document.getElementById('tabBtnExport').classList.remove('text-slate-400');
+        loadStats();
+      }
+    }
+
+    // --- DATA LOADING ---
+    async function loadStats() {
+      try {
+        const res = await fetch('/api/stats');
+        if (!res.ok) return;
+        const s = await res.json();
+
+        document.getElementById('statTotalRests').textContent = s.total_restaurants || 0;
+        document.getElementById('statTotalItems').textContent = (s.total_menu_items || 0).toLocaleString();
+        document.getElementById('statWithMenu').textContent = `${s.restaurants_with_menu || 0} with full menus`;
+        document.getElementById('statGrabCount').textContent = s.sources?.grabfood || 0;
+        document.getElementById('statAvgPrice').textContent = `Avg: RM ${(s.price_stats?.avg || 0).toFixed(2)}`;
+
+        document.getElementById('headerDbStats').textContent = `menus.db • ${s.total_restaurants} Restaurants • ${(s.total_menu_items || 0).toLocaleString()} Items`;
+        document.getElementById('exportCsvCount').textContent = `${(s.total_menu_items || 0).toLocaleString()} items`;
+        document.getElementById('exportJsonCount').textContent = `${s.total_restaurants} restaurants`;
+      } catch (err) {
+        console.error('Failed to load stats', err);
+      }
+    }
+
+    async function loadRestaurants() {
+      const search = document.getElementById('searchInput').value.trim();
+      const area = document.getElementById('filterArea').value;
+      const hasMenu = document.getElementById('filterMenu').value;
+      const sort = document.getElementById('sortBy').value;
+
+      const params = new URLSearchParams();
+      if (search) params.set('search', search);
+      if (area) params.set('area', area);
+      if (hasMenu) params.set('has_menu', hasMenu);
+      if (sort) params.set('sort', sort);
+
+      try {
+        const res = await fetch(`/api/restaurants?${params.toString()}`);
+        const data = await res.json();
+        currentRestaurants = data.restaurants || [];
+        renderRestaurantsTable(currentRestaurants);
+        loadStats();
+      } catch (err) {
+        console.error('Failed to load restaurants', err);
+      }
+    }
+
+    function renderRestaurantsTable(rests) {
+      const tbody = document.getElementById('restaurantTableBody');
+      const countEl = document.getElementById('showingCount');
+
+      if (!rests || rests.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="7" class="py-12 text-center text-slate-500">
+              No restaurants match the selected criteria.
+            </td>
+          </tr>
+        `;
+        countEl.textContent = 'Showing 0 restaurants';
+        return;
+      }
+
+      countEl.textContent = `Showing ${rests.length} restaurants`;
+
+      tbody.innerHTML = rests.map(r => {
+        const ratingBadge = r.rating 
+          ? `<span class="px-2 py-0.5 rounded bg-amber-950/60 text-amber-400 border border-amber-800/40 font-semibold text-xs">⭐ ${r.rating.toFixed(1)}</span>`
+          : `<span class="text-slate-600 text-xs">-</span>`;
+
+        const itemsBadge = r.items_count > 0
+          ? `<span class="px-2.5 py-0.5 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800/60 font-mono text-xs font-semibold">${r.items_count}</span>`
+          : `<span class="px-2 py-0.5 rounded bg-slate-800 text-slate-500 text-xs">0</span>`;
+
+        const avgPriceStr = r.avg_price ? `RM ${r.avg_price.toFixed(2)}` : `<span class="text-slate-600">-</span>`;
+        const areaStr = r.area ? `<span class="px-2 py-0.5 rounded bg-slate-800/80 text-cyan-300 text-xs">${r.area}</span>` : `<span class="text-slate-600 text-xs">-</span>`;
+        const cuisineStr = r.cuisine ? `<span class="text-xs text-slate-300 truncate max-w-[140px] block" title="${r.cuisine}">${r.cuisine}</span>` : `<span class="text-slate-600 text-xs">-</span>`;
+
+        return `
+          <tr class="hover:bg-slate-800/40 transition">
+            <td class="py-3.5 px-4 font-semibold text-white">
+              <div class="flex items-center gap-2">
+                <span>${escapeHtml(r.name)}</span>
+                ${r.grab_url ? '<a href="' + r.grab_url + '" target="_blank" title="GrabFood" class="text-xs opacity-60 hover:opacity-100">🟢</a>' : ''}
+                ${r.website ? '<a href="' + r.website + '" target="_blank" title="Website" class="text-xs opacity-60 hover:opacity-100">🌐</a>' : ''}
+              </div>
+              <div class="text-xs text-slate-500 font-mono mt-0.5">ID: ${r.id}</div>
+            </td>
+            <td class="py-3.5 px-4">
+              <div>${areaStr}</div>
+              <div class="text-xs text-slate-400 truncate max-w-[180px] mt-0.5">${escapeHtml(r.address || '')}</div>
+            </td>
+            <td class="py-3.5 px-4">${cuisineStr}</td>
+            <td class="py-3.5 px-4 text-center">${ratingBadge}</td>
+            <td class="py-3.5 px-4 text-right font-mono">${itemsBadge}</td>
+            <td class="py-3.5 px-4 text-right font-mono font-medium text-slate-200">${avgPriceStr}</td>
+            <td class="py-3.5 px-4 text-center">
+              <div class="flex items-center justify-center gap-1.5">
+                <button onclick="inspectRestaurant(${r.id})" class="px-3 py-1 rounded-lg bg-cyan-950 hover:bg-cyan-900 text-cyan-300 border border-cyan-800/50 text-xs font-medium transition">
+                  Inspect Menu
+                </button>
+                <button onclick="deleteRestaurant(${r.id}, '${escapeHtml(r.name)}')" class="px-2 py-1 rounded-lg hover:bg-red-950 text-slate-500 hover:text-red-400 text-xs transition" title="Delete">
+                  🗑️
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function debounceSearch() {
+      clearTimeout(searchDebounceTimer);
+      searchDebounceTimer = setTimeout(() => {
+        loadRestaurants();
+      }, 300);
+    }
+
+    // --- MODAL INSPECTOR ---
+    async function inspectRestaurant(id) {
+      try {
+        const res = await fetch(`/api/restaurants/${id}`);
+        if (!res.ok) return;
+        currentModalDetail = await res.json();
+
+        document.getElementById('modalRestName').textContent = currentModalDetail.name;
+        document.getElementById('modalRestArea').textContent = currentModalDetail.area || 'Unspecified';
+        document.getElementById('modalRestRating').textContent = currentModalDetail.rating ? `⭐ ${currentModalDetail.rating.toFixed(1)}` : 'No rating';
+        
+        let metaParts = [];
+        if (currentModalDetail.address) metaParts.push(currentModalDetail.address);
+        if (currentModalDetail.opening_hours) metaParts.push(`🕒 ${currentModalDetail.opening_hours}`);
+        if (currentModalDetail.cuisine) metaParts.push(`🍴 ${currentModalDetail.cuisine}`);
+        document.getElementById('modalRestMeta').textContent = metaParts.join(' • ') || 'No extra metadata recorded';
+
+        // Render Category Pills
+        const categories = Object.keys(currentModalDetail.categories || {});
+        selectedCategory = 'ALL';
+        const pillsContainer = document.getElementById('modalCategoryPills');
+
+        let pillsHtml = `
+          <button onclick="selectCategory('ALL')" class="modal-cat-btn px-3 py-1 rounded-full text-xs font-semibold bg-brand-500 text-white whitespace-nowrap">
+            All (${currentModalDetail.items_count})
+          </button>
+        `;
+        categories.forEach(cat => {
+          const count = currentModalDetail.categories[cat].length;
+          pillsHtml += `
+            <button onclick="selectCategory('${escapeHtml(cat)}')" class="modal-cat-btn px-3 py-1 rounded-full text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-300 whitespace-nowrap">
+              ${escapeHtml(cat)} (${count})
+            </button>
+          `;
+        });
+        pillsContainer.innerHTML = pillsHtml;
+
+        renderModalItems();
+        document.getElementById('menuModal').classList.remove('hidden');
+      } catch (err) {
+        console.error('Failed to load restaurant detail', err);
+      }
+    }
+
+    function selectCategory(cat) {
+      selectedCategory = cat;
+      document.querySelectorAll('.modal-cat-btn').forEach(btn => {
+        if (btn.textContent.trim().startsWith(cat === 'ALL' ? 'All' : cat)) {
+          btn.className = 'modal-cat-btn px-3 py-1 rounded-full text-xs font-semibold bg-brand-500 text-white whitespace-nowrap';
+        } else {
+          btn.className = 'modal-cat-btn px-3 py-1 rounded-full text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-300 whitespace-nowrap';
+        }
+      });
+      renderModalItems();
+    }
+
+    function filterModalItems() {
+      renderModalItems();
+    }
+
+    function renderModalItems() {
+      if (!currentModalDetail) return;
+      const container = document.getElementById('modalCatalogBody');
+      const query = (document.getElementById('modalSearchInput').value || '').toLowerCase().trim();
+      const categories = currentModalDetail.categories || {};
+
+      let html = '';
+      let totalVisible = 0;
+
+      for (const [catName, items] of Object.entries(categories)) {
+        if (selectedCategory !== 'ALL' && selectedCategory !== catName) continue;
+
+        const filtered = items.filter(it => {
+          if (!query) return true;
+          return (it.name || '').toLowerCase().includes(query) || (it.description || '').toLowerCase().includes(query);
+        });
+
+        if (filtered.length === 0) continue;
+        totalVisible += filtered.length;
+
+        html += `
+          <div class="space-y-3">
+            <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
+              <h4 class="font-bold text-white text-sm flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+                <span>${escapeHtml(catName)}</span>
+              </h4>
+              <span class="text-xs text-slate-400 font-mono">${filtered.length} items</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+              ${filtered.map(it => `
+                <div class="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800/80 flex flex-col justify-between hover:border-slate-700 transition">
+                  <div>
+                    <div class="flex items-start justify-between gap-2">
+                      <span class="font-semibold text-white text-sm leading-snug">${escapeHtml(it.name)}</span>
+                      <span class="font-mono font-bold text-emerald-400 text-sm whitespace-nowrap">
+                        ${it.price ? 'RM ' + it.price.toFixed(2) : '-'}
+                      </span>
+                    </div>
+                    ${it.description ? `<p class="text-xs text-slate-400 mt-1 leading-relaxed">${escapeHtml(it.description)}</p>` : ''}
+                  </div>
+                  <div class="mt-2.5 pt-2 border-t border-slate-900 flex items-center justify-between text-[11px] text-slate-500">
+                    <span class="font-mono uppercase">${it.source || 'menu'}</span>
+                    <span>${it.scraped_at ? new Date(it.scraped_at).toLocaleDateString() : ''}</span>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      if (totalVisible === 0) {
+        html = '<div class="py-12 text-center text-slate-500">No items match the filter in this category.</div>';
+      }
+
+      container.innerHTML = html;
+      document.getElementById('modalItemsSummary').textContent = `${totalVisible} items displayed`;
+    }
+
+    function closeModal() {
+      document.getElementById('menuModal').classList.add('hidden');
+      currentModalDetail = null;
+    }
+
+    async function deleteRestaurant(id, name) {
+      if (!confirm(`Are you sure you want to permanently delete '${name}' and its menu items?`)) return;
+      try {
+        const res = await fetch(`/api/restaurants/${id}`, { method: 'DELETE' });
+        if (res.ok) {
+          loadRestaurants();
+        } else {
+          alert('Failed to delete restaurant.');
+        }
+      } catch (err) {
+        alert('Error: ' + err.message);
+      }
+    }
+
+    // --- SCRAPER STUDIO ---
+    function setPreset(type) {
+      if (type === 'grab') {
+        document.getElementById('scrapeUrl').value = 'https://food.grab.com/my/en/restaurant/sushi-king-1borneo-hypermall-delivery/1-CYWJGEEFSEVKEA';
+        document.getElementById('scrapeArea').value = '1borneo';
+      } else if (type === 'alamesra') {
+        document.getElementById('scrapeUrl').value = 'https://food.grab.com/my/en/restaurant/ayam-gepuk-bahru-alamesra-delivery/1-C2CGDFBBAEWEL2';
+        document.getElementById('scrapeArea').value = 'alamesra';
+      }
+    }
+
+    async function handleScrapeSubmit(e) {
+      e.preventDefault();
+      const url = document.getElementById('scrapeUrl').value.trim();
+      const name = document.getElementById('scrapeName').value.trim();
+      const area = document.getElementById('scrapeArea').value;
+      const cuisine = document.getElementById('scrapeCuisine').value.trim();
+      const render = document.getElementById('scrapeRender').checked;
+
+      const submitBtn = document.getElementById('scrapeSubmitBtn');
+      const badge = document.getElementById('scrapeStatusBadge');
+      const consoleBox = document.getElementById('scrapeConsole');
+      const logBox = document.getElementById('scrapeLogBox');
+      const resultCard = document.getElementById('scrapeResultCard');
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span>⏳ Scraping in progress...</span>';
+      badge.textContent = 'Engine Running';
+      badge.className = 'px-3 py-1 rounded-full text-xs font-semibold bg-cyan-950 text-cyan-400 border border-cyan-700 animate-pulse';
+
+      consoleBox.classList.remove('hidden');
+      resultCard.classList.add('hidden');
+      logBox.innerHTML = `<div>[${new Date().toLocaleTimeString()}] Initializing headless scraper for ${url}...</div>`;
+
+      const startTime = Date.now();
+      const timerInterval = setInterval(() => {
+        document.getElementById('scrapeTimer').textContent = `${((Date.now() - startTime) / 1000).toFixed(1)}s`;
+      }, 100);
+
+      try {
+        logBox.innerHTML += `<div>[${new Date().toLocaleTimeString()}] Connecting to target... (Playwright Chromium / API)</div>`;
+
+        const res = await fetch('/api/scrape', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url, name, area, cuisine, render })
+        });
+
+        clearInterval(timerInterval);
+        const data = await res.json();
+
+        if (data.success) {
+          badge.textContent = 'Completed Successfully';
+          badge.className = 'px-3 py-1 rounded-full text-xs font-semibold bg-emerald-950 text-emerald-400 border border-emerald-700';
+
+          logBox.innerHTML += `<div class="text-emerald-400">[${new Date().toLocaleTimeString()}] ✓ Extracted ${data.itemsCount} items from "${data.restaurantName}"</div>`;
+          logBox.innerHTML += `<div class="text-cyan-400">[${new Date().toLocaleTimeString()}] Record stored in SQLite menus.db (ID: ${data.restaurantId})</div>`;
+
+          // Display Results Card
+          document.getElementById('resultName').textContent = data.restaurantName;
+          document.getElementById('resultMeta').textContent = `${data.area || 'Unspecified area'} • ${data.cuisine || 'Cuisine unassigned'} • ${data.address || 'Address unassigned'}`;
+          document.getElementById('resultCount').textContent = data.itemsCount;
+
+          const previewTable = document.getElementById('resultItemsTable');
+          previewTable.innerHTML = (data.items || []).slice(0, 10).map(it => `
+            <tr>
+              <td class="py-1.5 px-3 text-cyan-400">${escapeHtml(it.category || 'Menu')}</td>
+              <td class="py-1.5 px-3 text-white">${escapeHtml(it.name)}</td>
+              <td class="py-1.5 px-3 text-right text-emerald-400">RM ${(it.price || 0).toFixed(2)}</td>
+            </tr>
+          `).join('');
+
+          resultCard.classList.remove('hidden');
+          loadRestaurants();
+        } else {
+          badge.textContent = 'Scrape Failed';
+          badge.className = 'px-3 py-1 rounded-full text-xs font-semibold bg-red-950 text-red-400 border border-red-700';
+          logBox.innerHTML += `<div class="text-red-400">[${new Date().toLocaleTimeString()}] ❌ Error: ${escapeHtml(data.error || 'Failed')}</div>`;
+        }
+      } catch (err) {
+        clearInterval(timerInterval);
+        badge.textContent = 'Network Error';
+        badge.className = 'px-3 py-1 rounded-full text-xs font-semibold bg-red-950 text-red-400 border border-red-700';
+        logBox.innerHTML += `<div class="text-red-400">[${new Date().toLocaleTimeString()}] ❌ Failed: ${err.message}</div>`;
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<span>🚀 Run Scraper</span>';
+      }
+    }
+
+    async function runDiscovery() {
+      const source = document.getElementById('discoverSource').value;
+      const btn = document.getElementById('discoverBtn');
+      const status = document.getElementById('discoverStatus');
+
+      btn.disabled = true;
+      btn.innerHTML = '<span>Scanning OSM...</span>';
+      status.textContent = 'Querying Overpass endpoints...';
+
+      try {
+        const res = await fetch('/api/discover', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ source })
+        });
+        const data = await res.json();
+        status.innerHTML = `<span class="text-emerald-400">✓ Discovery completed: ${data.osm || 0} OSM places found. Total in DB: ${data.total_in_db}</span>`;
+        loadRestaurants();
+      } catch (err) {
+        status.innerHTML = `<span class="text-red-400">Discovery failed: ${err.message}</span>`;
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<span>Scan Area Venues</span>';
+      }
+    }
+
+    // --- EXPORT CENTER ---
+    async function triggerDiskExport() {
+      const btn = document.getElementById('diskExportBtn');
+      const status = document.getElementById('diskExportStatus');
+
+      btn.disabled = true;
+      btn.textContent = 'Exporting...';
+
+      try {
+        const res = await fetch('/api/export', { method: 'POST', headers: { 'Content-Type': 'application/json' } });
+        const data = await res.json();
+        status.textContent = `✓ Successfully saved ${data.menu_items} items into ${data.csv_path} and ${data.json_path}`;
+        status.classList.remove('hidden');
+      } catch (err) {
+        status.textContent = 'Export failed: ' + err.message;
+        status.className = 'mt-2 text-xs font-mono text-red-400';
+        status.classList.remove('hidden');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '💾 Write to exports/ directory';
+      }
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', () => {
+      loadRestaurants();
+    });
+  </script>
+</body>
+</html>

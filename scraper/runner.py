@@ -218,15 +218,6 @@ def cmd_scrape(
         except Exception as e:
             logger.warning("SQLite storage failed: %s", e)
 
-        # Automatic Firestore Cloud Sync
-        try:
-            from .firebase_db import sync_restaurant_to_firestore, sync_menu_items_to_firestore
-            doc_id = sync_restaurant_to_firestore(restaurant_record, restaurant_id=rid)
-            if doc_id and sanitized_items:
-                sync_menu_items_to_firestore(doc_id, final_name, sanitized_items, source=source_label)
-        except Exception as e:
-            logger.debug("Firestore sync skipped: %s", e)
-
     return {
         "success": True,
         "restaurantId": rid,
@@ -260,14 +251,10 @@ def main():
     parser.add_argument("--lon", type=float, help="Longitude")
     parser.add_argument("--area", help="District or neighborhood (e.g. 1borneo, alamesra)")
     parser.add_argument("--render", action="store_true", help="Use headless Chromium for website")
-    parser.add_argument("--sync-firebase", action="store_true", help="Sync all SQLite data to Firebase Cloud Firestore")
 
     args = parser.parse_args()
 
-    if args.sync_firebase:
-        from .firebase_db import sync_sqlite_to_firestore
-        res = sync_sqlite_to_firestore(config.DB_PATH)
-    elif args.url:
+    if args.url:
         res = cmd_scrape(
             args.url,
             name=args.name,
@@ -281,7 +268,7 @@ def main():
             render=args.render,
         )
     else:
-        res = {"success": False, "error": "No valid action specified. Use --url or --sync-firebase."}
+        res = {"success": False, "error": "No valid action specified. Use --url."}
 
     print(json.dumps(res))
 
