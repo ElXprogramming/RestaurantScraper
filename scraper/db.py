@@ -229,13 +229,26 @@ def set_fields(conn, restaurant_id: int, **fields):
     conn.commit()
 
 
-def export(conn, out_dir: Path) -> dict:
+def export(conn, out_dir: Path, restaurant_ids: list[int] | None = None) -> dict:
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
+
+    where_menu = ""
+    where_rests = ""
+    params = []
+    if restaurant_ids:
+        clean_ids = [int(i) for i in restaurant_ids]
+        placeholders = ",".join("?" * len(clean_ids))
+        where_menu = f" WHERE r.id IN ({placeholders})"
+        where_rests = f" WHERE id IN ({placeholders})"
+        params = clean_ids
+
     raw_rows = [dict(r) for r in conn.execute(
         "SELECT r.name AS restaurant, r.area, r.cuisine, r.rating, r.opening_hours, r.address, r.lat, r.lon, r.website,"
         " m.category, m.name AS item, m.description, m.price, m.currency, m.source, m.source_url, m.scraped_at"
-        " FROM menu_items m JOIN restaurants r ON r.id=m.restaurant_id ORDER BY r.name, m.category, m.name")]
+        f" FROM menu_items m JOIN restaurants r ON r.id=m.restaurant_id{where_menu} ORDER BY r.name, m.category, m.name",
+        params
+    )]
 
     # Sanitize each field against CSV Formula Injection (=, +, -, @)
     sanitized_rows = [
@@ -247,7 +260,7 @@ def export(conn, out_dir: Path) -> dict:
         w = csv.DictWriter(f, fieldnames=list(raw_rows[0].keys()) if raw_rows else ["restaurant"])
         w.writeheader()
         w.writerows(sanitized_rows)
-    rests = [dict(r) for r in conn.execute("SELECT * FROM restaurants ORDER BY name")]
+    rests = [dict(r) for r in conn.execute(f"SELECT * FROM restaurants{where_rests} ORDER BY name", params)]
     for r in rests:
         r["menu"] = [dict(i) for i in conn.execute(
             "SELECT category,name,description,price,currency,source FROM menu_items WHERE restaurant_id=?",
@@ -451,13 +464,23 @@ def delete_restaurant(conn, restaurant_id: int) -> bool:
     return cur.rowcount > 0
 
 
-def export_csv_string(conn) -> str:
+def export_csv_string(conn, restaurant_ids: list[int] | None = None) -> str:
     """Generate in-memory CSV string for browser download."""
     import io
+    where_menu = ""
+    params = []
+    if restaurant_ids:
+        clean_ids = [int(i) for i in restaurant_ids]
+        placeholders = ",".join("?" * len(clean_ids))
+        where_menu = f" WHERE r.id IN ({placeholders})"
+        params = clean_ids
+
     raw_rows = [dict(r) for r in conn.execute(
         "SELECT r.name AS restaurant, r.area, r.cuisine, r.rating, r.opening_hours, r.address, r.lat, r.lon, r.website,"
         " m.category, m.name AS item, m.description, m.price, m.currency, m.source, m.source_url, m.scraped_at"
-        " FROM menu_items m JOIN restaurants r ON r.id=m.restaurant_id ORDER BY r.name, m.category, m.name")]
+        f" FROM menu_items m JOIN restaurants r ON r.id=m.restaurant_id{where_menu} ORDER BY r.name, m.category, m.name",
+        params
+    )]
 
     sanitized_rows = [
         {k: sanitize_csv_cell(v) if isinstance(v, str) else v for k, v in r.items()}
@@ -474,9 +497,17 @@ def export_csv_string(conn) -> str:
     return output.getvalue()
 
 
-def export_json_string(conn) -> str:
+def export_json_string(conn, restaurant_ids: list[int] | None = None) -> str:
     """Generate in-memory hierarchical JSON string for browser download."""
-    rests = [dict(r) for r in conn.execute("SELECT * FROM restaurants ORDER BY name")]
+    where_rests = ""
+    params = []
+    if restaurant_ids:
+        clean_ids = [int(i) for i in restaurant_ids]
+        placeholders = ",".join("?" * len(clean_ids))
+        where_rests = f" WHERE id IN ({placeholders})"
+        params = clean_ids
+
+    rests = [dict(r) for r in conn.execute(f"SELECT * FROM restaurants{where_rests} ORDER BY name", params)]
     for r in rests:
         r["menu"] = [dict(i) for i in conn.execute(
             "SELECT category,name,description,price,currency,source FROM menu_items WHERE restaurant_id=?",

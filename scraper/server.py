@@ -11,6 +11,7 @@ import json
 import logging
 import os
 from pathlib import Path
+import re
 import threading
 import time
 from typing import Any, Dict, List, Optional
@@ -93,9 +94,9 @@ class RestaurantScraperAPIHandler(BaseHTTPRequestHandler):
             elif path == "/api/jobs":
                 self._handle_jobs()
             elif path == "/api/export/csv":
-                self._handle_export_csv_download()
+                self._handle_export_csv_download(query)
             elif path == "/api/export/json":
-                self._handle_export_json_download()
+                self._handle_export_json_download(query)
             else:
                 self.send_error(HTTPStatus.NOT_FOUND, "Endpoint not found")
         except Exception as exc:
@@ -288,21 +289,55 @@ class RestaurantScraperAPIHandler(BaseHTTPRequestHandler):
         results["total_in_db"] = conn.execute("SELECT COUNT(*) FROM restaurants").fetchone()[0]
         self._send_json(results)
 
+    def _parse_ids_from_query(self, query: Dict[str, List[str]]) -> List[int]:
+        raw_ids = query.get("ids", []) + query.get("id", [])
+        if not raw_ids:
+            return []
+        result = []
+        for raw in raw_ids:
+            for part in str(raw).split(","):
+                part = part.strip()
+                if part.isdigit():
+                    result.append(int(part))
+        return result
+
     def _handle_export(self, data: Dict[str, Any]) -> None:
         out_dir = Path(data.get("out_dir") or config.EXPORT_DIR)
+        raw_ids = data.get("ids") or data.get("restaurant_ids") or []
+        ids = [int(i) for i in raw_ids if str(i).isdigit()] if raw_ids else None
         conn = db.connect(config.DB_PATH)
-        res = db.export(conn, out_dir)
+        res = db.export(conn, out_dir, restaurant_ids=ids)
         self._send_json(res)
 
-    def _handle_export_csv_download(self) -> None:
+    def _handle_export_csv_download(self, query: Dict[str, List[str]]) -> None:
+        ids = self._parse_ids_from_query(query)
         conn = db.connect(config.DB_PATH)
-        csv_content = db.export_csv_string(conn).encode("utf-8-sig")
-        self._send_file_download(csv_content, "menu_items.csv", "text/csv; charset=utf-8")
+        filename = "menu_items.csv"
+        if len(ids) == 1:
+            rest = db.get_restaurant_detail(conn, ids[0])
+            if rest:
+                slug = re.sub(r"[^a-z0-9]+", "_", rest["name"].lower()).strip("_")
+                filename = f"menu_{slug}.csv"
+        elif len(ids) > 1:
+            filename = f"menu_items_selected_{len(ids)}_restaurants.csv"
 
-    def _handle_export_json_download(self) -> None:
+        csv_content = db.export_csv_string(conn, restaurant_ids=ids if ids else None).encode("utf-8-sig")
+        self._send_file_download(csv_content, filename, "text/csv; charset=utf-8")
+
+    def _handle_export_json_download(self, query: Dict[str, List[str]]) -> None:
+        ids = self._parse_ids_from_query(query)
         conn = db.connect(config.DB_PATH)
-        json_content = db.export_json_string(conn).encode("utf-8")
-        self._send_file_download(json_content, "restaurants.json", "application/json; charset=utf-8")
+        filename = "restaurants.json"
+        if len(ids) == 1:
+            rest = db.get_restaurant_detail(conn, ids[0])
+            if rest:
+                slug = re.sub(r"[^a-z0-9]+", "_", rest["name"].lower()).strip("_")
+                filename = f"restaurant_{slug}.json"
+        elif len(ids) > 1:
+            filename = f"restaurants_selected_{len(ids)}.json"
+
+        json_content = db.export_json_string(conn, restaurant_ids=ids if ids else None).encode("utf-8")
+        self._send_file_download(json_content, filename, "application/json; charset=utf-8")
 
     def _handle_add_or_update_link(self, data: Dict[str, Any]) -> None:
         name = (data.get("name") or "").strip()

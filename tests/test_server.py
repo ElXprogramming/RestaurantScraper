@@ -44,6 +44,20 @@ def test_server_api_endpoints():
         res_json = urllib.request.urlopen("http://127.0.0.1:9922/api/export/json")
         assert res_json.status == 200
         assert "attachment" in res_json.headers.get("Content-Disposition", "")
+
+        # 6. Selected CSV download endpoint
+        res_sel_csv = urllib.request.urlopen("http://127.0.0.1:9922/api/export/csv?ids=24")
+        assert res_sel_csv.status == 200
+        assert "attachment" in res_sel_csv.headers.get("Content-Disposition", "")
+        sel_csv_text = res_sel_csv.read().decode("utf-8-sig")
+        assert "After 10 Cafe" in sel_csv_text
+
+        # 7. Selected JSON download endpoint
+        res_sel_json = urllib.request.urlopen("http://127.0.0.1:9922/api/export/json?ids=24")
+        assert res_sel_json.status == 200
+        sel_json_data = json.loads(res_sel_json.read().decode("utf-8"))
+        assert len(sel_json_data) == 1
+        assert sel_json_data[0]["name"] == "After 10 Cafe"
     finally:
         server.shutdown()
         server.server_close()

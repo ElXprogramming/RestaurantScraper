@@ -39,3 +39,12 @@ def test_cli_export(tmp_path):
     assert result.exit_code == 0
     assert (tmp_path / "menu_items.csv").exists()
     assert (tmp_path / "restaurants.json").exists()
+
+
+def test_cli_export_selected(tmp_path):
+    result = runner.invoke(app, ["export", "--ids", "24", "--out-dir", str(tmp_path)])
+    assert result.exit_code == 0
+    assert "Exporting 1 selected restaurant" in result.output
+    assert (tmp_path / "menu_items.csv").exists()
+    assert (tmp_path / "restaurants.json").exists()
+

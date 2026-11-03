@@ -176,12 +176,35 @@
         </div>
       </div>
 
+      <!-- Selection Action Bar (Shown when >= 1 restaurant selected) -->
+      <div id="selectionActionBar" class="hidden glass-card rounded-2xl p-4 bg-gradient-to-r from-slate-900 via-cyan-950/40 to-slate-900 border border-cyan-500/30 flex flex-wrap items-center justify-between gap-3 shadow-lg glow-cyan">
+        <div class="flex items-center gap-3">
+          <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping"></span>
+          <span class="text-sm font-bold text-white"><span id="selectedCountBadge">0</span> Restaurants Selected</span>
+          <span class="text-xs text-slate-400 hidden sm:inline">• Export only these venues</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="exportSelected('csv')" class="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition shadow flex items-center gap-1.5 cursor-pointer">
+            <span>📊 Export Selected CSV</span>
+          </button>
+          <button onclick="exportSelected('json')" class="px-3.5 py-1.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-xs transition shadow flex items-center gap-1.5 cursor-pointer">
+            <span>📦 Export Selected JSON</span>
+          </button>
+          <button onclick="clearSelection()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs transition font-medium cursor-pointer">
+            Clear
+          </button>
+        </div>
+      </div>
+
       <!-- Organized Restaurant List Table -->
       <div class="glass-card rounded-2xl overflow-hidden shadow-xl">
         <div class="overflow-x-auto">
           <table class="w-full text-left border-collapse">
             <thead>
               <tr class="border-b border-slate-800 bg-slate-900/90 text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                <th class="py-3.5 px-3 w-10 text-center">
+                  <input type="checkbox" id="selectAllCheckbox" onchange="toggleSelectAll()" class="rounded bg-slate-800 border-slate-700 text-cyan-500 focus:ring-0 cursor-pointer w-4 h-4" title="Select / Deselect All on page" />
+                </th>
                 <th class="py-3.5 px-4">Restaurant</th>
                 <th class="py-3.5 px-4">Area & Address</th>
                 <th class="py-3.5 px-4">Cuisine</th>
@@ -193,7 +216,7 @@
             </thead>
             <tbody id="restaurantTableBody" class="divide-y divide-slate-800/60 text-sm">
               <tr>
-                <td colspan="7" class="py-12 text-center text-slate-500">Loading restaurants...</td>
+                <td colspan="8" class="py-12 text-center text-slate-500">Loading restaurants...</td>
               </tr>
             </tbody>
           </table>
@@ -364,6 +387,22 @@
         </h2>
         <p class="text-sm text-slate-400 mt-1">Download clean, formatted, formula-sanitized datasets ready for research, analysis, Excel, or downstream systems.</p>
 
+        <!-- Export Scope Selector -->
+        <div class="mt-5 p-4 rounded-xl bg-slate-900/80 border border-slate-800 flex flex-wrap items-center justify-between gap-4">
+          <div class="flex items-center gap-4">
+            <span class="text-xs font-semibold uppercase text-slate-300">Export Scope:</span>
+            <label class="flex items-center gap-2 text-xs text-slate-200 cursor-pointer">
+              <input type="radio" id="scopeAllRadio" name="exportScope" value="all" checked onchange="updateExportScope()" class="text-cyan-500 focus:ring-0 cursor-pointer" />
+              <span>All Restaurants (<span id="exportScopeAllCount">--</span>)</span>
+            </label>
+            <label class="flex items-center gap-2 text-xs text-slate-200 cursor-pointer">
+              <input type="radio" id="scopeSelectedRadio" name="exportScope" value="selected" onchange="updateExportScope()" class="text-cyan-500 focus:ring-0 cursor-pointer" />
+              <span>Selected Restaurants Only (<span id="exportScopeSelectedCount" class="font-bold text-cyan-400">0</span>)</span>
+            </label>
+          </div>
+          <span id="exportScopeNotice" class="text-xs text-slate-400 font-mono italic">Exporting entire dataset</span>
+        </div>
+
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
           
           <!-- CSV Export Card -->
@@ -380,7 +419,7 @@
             </div>
             <div class="mt-6 pt-4 border-t border-slate-800/80 flex items-center justify-between">
               <span id="exportCsvCount" class="text-xs text-slate-400 font-mono">-- records</span>
-              <a href="/api/export/csv" download="menu_items.csv" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition shadow-lg shadow-emerald-600/20 flex items-center gap-1.5">
+              <a id="downloadCsvLink" href="/api/export/csv" download="menu_items.csv" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition shadow-lg shadow-emerald-600/20 flex items-center gap-1.5 cursor-pointer">
                 <span>⬇ Download CSV</span>
               </a>
             </div>
@@ -400,7 +439,7 @@
             </div>
             <div class="mt-6 pt-4 border-t border-slate-800/80 flex items-center justify-between">
               <span id="exportJsonCount" class="text-xs text-slate-400 font-mono">-- restaurants</span>
-              <a href="/api/export/json" download="restaurants.json" class="px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-xs transition shadow-lg shadow-cyan-600/20 flex items-center gap-1.5">
+              <a id="downloadJsonLink" href="/api/export/json" download="restaurants.json" class="px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-xs transition shadow-lg shadow-cyan-600/20 flex items-center gap-1.5 cursor-pointer">
                 <span>⬇ Download JSON</span>
               </a>
             </div>
@@ -440,9 +479,17 @@
           </div>
           <p id="modalRestMeta" class="text-xs text-slate-400 mt-1">Address • Opening Hours • Links</p>
         </div>
-        <button onclick="closeModal()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center text-lg font-bold transition">
-          ✕
-        </button>
+        <div class="flex items-center gap-2">
+          <button onclick="exportCurrentModal('csv')" class="px-3 py-1.5 rounded-xl bg-emerald-600/90 hover:bg-emerald-500 text-white font-medium text-xs transition shadow flex items-center gap-1.5 cursor-pointer" title="Export this restaurant's menu to CSV">
+            <span>📊 Export CSV</span>
+          </button>
+          <button onclick="exportCurrentModal('json')" class="px-3 py-1.5 rounded-xl bg-cyan-600/90 hover:bg-cyan-500 text-white font-medium text-xs transition shadow flex items-center gap-1.5 cursor-pointer" title="Export this restaurant's profile & menu to JSON">
+            <span>📦 Export JSON</span>
+          </button>
+          <button onclick="closeModal()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center text-lg font-bold transition cursor-pointer ml-1">
+            ✕
+          </button>
+        </div>
       </div>
 
       <!-- Modal Category Tabs and Search -->
@@ -483,6 +530,7 @@
     let currentModalDetail = null;
     let selectedCategory = 'ALL';
     let searchDebounceTimer = null;
+    let selectedRestIds = new Set();
 
     // --- TAB SWITCHING ---
     function switchTab(tabId) {
@@ -506,6 +554,115 @@
         document.getElementById('tabBtnExport').classList.add('bg-brand-500', 'text-white', 'shadow');
         document.getElementById('tabBtnExport').classList.remove('text-slate-400');
         loadStats();
+        updateExportScope();
+      }
+    }
+
+    // --- SELECTION MANAGEMENT ---
+    function toggleSelectRestaurant(id) {
+      if (selectedRestIds.has(id)) {
+        selectedRestIds.delete(id);
+      } else {
+        selectedRestIds.add(id);
+      }
+      updateSelectionUI();
+    }
+
+    function toggleSelectAll() {
+      const selectAllBox = document.getElementById('selectAllCheckbox');
+      if (selectAllBox && selectAllBox.checked) {
+        currentRestaurants.forEach(r => selectedRestIds.add(r.id));
+      } else {
+        selectedRestIds.clear();
+      }
+      updateSelectionUI();
+    }
+
+    function clearSelection() {
+      selectedRestIds.clear();
+      updateSelectionUI();
+    }
+
+    function updateSelectionUI() {
+      const bar = document.getElementById('selectionActionBar');
+      const countBadge = document.getElementById('selectedCountBadge');
+      const selectAllBox = document.getElementById('selectAllCheckbox');
+      const scopeCount = document.getElementById('exportScopeSelectedCount');
+
+      const count = selectedRestIds.size;
+      if (countBadge) countBadge.textContent = count;
+      if (scopeCount) scopeCount.textContent = count;
+
+      if (bar) {
+        if (count > 0) {
+          bar.classList.remove('hidden');
+        } else {
+          bar.classList.add('hidden');
+        }
+      }
+
+      if (selectAllBox && currentRestaurants.length > 0) {
+        selectAllBox.checked = currentRestaurants.every(r => selectedRestIds.has(r.id));
+      }
+
+      // Sync checkbox states in the table without re-rendering everything
+      document.querySelectorAll('.rest-row-checkbox').forEach(cb => {
+        const id = parseInt(cb.dataset.id, 10);
+        cb.checked = selectedRestIds.has(id);
+        const row = cb.closest('tr');
+        if (row) {
+          if (cb.checked) {
+            row.classList.add('bg-cyan-950/20');
+          } else {
+            row.classList.remove('bg-cyan-950/20');
+          }
+        }
+      });
+
+      updateExportScope();
+    }
+
+    function exportSelected(format) {
+      if (selectedRestIds.size === 0) {
+        alert('Please select at least one restaurant to export.');
+        return;
+      }
+      const idsParam = Array.from(selectedRestIds).join(',');
+      window.location.href = `/api/export/${format}?ids=${idsParam}`;
+    }
+
+    function exportCurrentModal(format) {
+      if (!currentModalDetail) return;
+      window.location.href = `/api/export/${format}?ids=${currentModalDetail.id}`;
+    }
+
+    function updateExportScope() {
+      const radios = document.getElementsByName('exportScope');
+      let scope = 'all';
+      for (const r of radios) {
+        if (r.checked) scope = r.value;
+      }
+
+      const csvLink = document.getElementById('downloadCsvLink');
+      const jsonLink = document.getElementById('downloadJsonLink');
+      const notice = document.getElementById('exportScopeNotice');
+      const count = selectedRestIds.size;
+
+      if (scope === 'selected') {
+        if (count === 0) {
+          if (notice) notice.innerHTML = '<span class="text-amber-400">⚠️ No restaurants selected yet. Select venues in Database Explorer first.</span>';
+          if (csvLink) csvLink.href = 'javascript:alert("Please select at least one restaurant in the Database Explorer first.")';
+          if (jsonLink) jsonLink.href = 'javascript:alert("Please select at least one restaurant in the Database Explorer first.")';
+        } else {
+          const idsParam = Array.from(selectedRestIds).join(',');
+          if (notice) notice.innerHTML = `<span class="text-cyan-300 font-semibold">Exporting ${count} selected restaurant(s)</span>`;
+          if (csvLink) csvLink.href = `/api/export/csv?ids=${idsParam}`;
+          if (jsonLink) jsonLink.href = `/api/export/json?ids=${idsParam}`;
+        }
+      } else {
+        if (notice) notice.textContent = 'Exporting entire dataset';
+        if (csvLink) csvLink.href = '/api/export/csv';
+        if (jsonLink) jsonLink.href = '/api/export/json';
       }
     }
 
@@ -525,6 +682,9 @@
         document.getElementById('headerDbStats').textContent = `menus.db • ${s.total_restaurants} Restaurants • ${(s.total_menu_items || 0).toLocaleString()} Items`;
         document.getElementById('exportCsvCount').textContent = `${(s.total_menu_items || 0).toLocaleString()} items`;
         document.getElementById('exportJsonCount').textContent = `${s.total_restaurants} restaurants`;
+        
+        const allCountEl = document.getElementById('exportScopeAllCount');
+        if (allCountEl) allCountEl.textContent = s.total_restaurants || 0;
       } catch (err) {
         console.error('Failed to load stats', err);
       }
@@ -556,22 +716,28 @@
     function renderRestaurantsTable(rests) {
       const tbody = document.getElementById('restaurantTableBody');
       const countEl = document.getElementById('showingCount');
+      const selectAllBox = document.getElementById('selectAllCheckbox');
 
       if (!rests || rests.length === 0) {
         tbody.innerHTML = `
           <tr>
-            <td colspan="7" class="py-12 text-center text-slate-500">
+            <td colspan="8" class="py-12 text-center text-slate-500">
               No restaurants match the selected criteria.
             </td>
           </tr>
         `;
         countEl.textContent = 'Showing 0 restaurants';
+        if (selectAllBox) selectAllBox.checked = false;
         return;
       }
 
       countEl.textContent = `Showing ${rests.length} restaurants`;
+      if (selectAllBox) {
+        selectAllBox.checked = rests.length > 0 && rests.every(r => selectedRestIds.has(r.id));
+      }
 
       tbody.innerHTML = rests.map(r => {
+        const isChecked = selectedRestIds.has(r.id);
         const ratingBadge = r.rating 
           ? `<span class="px-2 py-0.5 rounded bg-amber-950/60 text-amber-400 border border-amber-800/40 font-semibold text-xs">⭐ ${r.rating.toFixed(1)}</span>`
           : `<span class="text-slate-600 text-xs">-</span>`;
@@ -585,7 +751,10 @@
         const cuisineStr = r.cuisine ? `<span class="text-xs text-slate-300 truncate max-w-[140px] block" title="${r.cuisine}">${r.cuisine}</span>` : `<span class="text-slate-600 text-xs">-</span>`;
 
         return `
-          <tr class="hover:bg-slate-800/40 transition">
+          <tr class="hover:bg-slate-800/40 transition ${isChecked ? 'bg-cyan-950/20' : ''}">
+            <td class="py-3.5 px-3 text-center">
+              <input type="checkbox" data-id="${r.id}" onchange="toggleSelectRestaurant(${r.id})" ${isChecked ? 'checked' : ''} class="rest-row-checkbox rounded bg-slate-800 border-slate-700 text-cyan-500 focus:ring-0 cursor-pointer w-4 h-4" />
+            </td>
             <td class="py-3.5 px-4 font-semibold text-white">
               <div class="flex items-center gap-2">
                 <span>${escapeHtml(r.name)}</span>
@@ -604,10 +773,10 @@
             <td class="py-3.5 px-4 text-right font-mono font-medium text-slate-200">${avgPriceStr}</td>
             <td class="py-3.5 px-4 text-center">
               <div class="flex items-center justify-center gap-1.5">
-                <button onclick="inspectRestaurant(${r.id})" class="px-3 py-1 rounded-lg bg-cyan-950 hover:bg-cyan-900 text-cyan-300 border border-cyan-800/50 text-xs font-medium transition">
+                <button onclick="inspectRestaurant(${r.id})" class="px-3 py-1 rounded-lg bg-cyan-950 hover:bg-cyan-900 text-cyan-300 border border-cyan-800/50 text-xs font-medium transition cursor-pointer">
                   Inspect Menu
                 </button>
-                <button onclick="deleteRestaurant(${r.id}, '${escapeHtml(r.name)}')" class="px-2 py-1 rounded-lg hover:bg-red-950 text-slate-500 hover:text-red-400 text-xs transition" title="Delete">
+                <button onclick="deleteRestaurant(${r.id}, '${escapeHtml(r.name)}')" class="px-2 py-1 rounded-lg hover:bg-red-950 text-slate-500 hover:text-red-400 text-xs transition cursor-pointer" title="Delete">
                   🗑️
                 </button>
               </div>
@@ -884,14 +1053,35 @@
     async function triggerDiskExport() {
       const btn = document.getElementById('diskExportBtn');
       const status = document.getElementById('diskExportStatus');
+      const radios = document.getElementsByName('exportScope');
+      let scope = 'all';
+      for (const r of radios) {
+        if (r.checked) scope = r.value;
+      }
+
+      if (scope === 'selected' && selectedRestIds.size === 0) {
+        alert('Please select at least one restaurant in the Database Explorer first.');
+        return;
+      }
+
+      const payload = {};
+      if (scope === 'selected') {
+        payload.ids = Array.from(selectedRestIds);
+      }
 
       btn.disabled = true;
       btn.textContent = 'Exporting...';
 
       try {
-        const res = await fetch('/api/export', { method: 'POST', headers: { 'Content-Type': 'application/json' } });
+        const res = await fetch('/api/export', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
         const data = await res.json();
-        status.textContent = `✓ Successfully saved ${data.menu_items} items into ${data.csv_path} and ${data.json_path}`;
+        const scopeText = scope === 'selected' ? `for ${data.restaurants} selected venue(s)` : 'for all venues';
+        status.textContent = `✓ Successfully saved ${data.menu_items} items ${scopeText} into ${data.csv_path} and ${data.json_path}`;
+        status.className = 'mt-2 text-xs font-mono text-emerald-400';
         status.classList.remove('hidden');
       } catch (err) {
         status.textContent = 'Export failed: ' + err.message;

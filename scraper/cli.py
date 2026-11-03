@@ -258,11 +258,41 @@ def cmd_add_link(
 def cmd_export(
     out_dir: Path = typer.Option(config.EXPORT_DIR, "--out-dir", "-o", help="Target export folder"),
     format: str = typer.Option("all", "--format", "-f", help="Export format: csv, json, or all"),
+    ids: Optional[str] = typer.Option(None, "--ids", "-i", help="Comma-separated restaurant IDs to export (e.g. 24,19)"),
+    name: Optional[str] = typer.Option(None, "--name", "-n", help="Filter by restaurant name substring"),
+    area: Optional[str] = typer.Option(None, "--area", "-a", help="Filter by area (e.g. 1borneo, alamesra)"),
 ) -> None:
-    """Export the database to CSV and/or JSON datasets."""
+    """Export the database to CSV and/or JSON datasets (supports exporting selected restaurants)."""
     _print_banner()
     conn = db.connect(config.DB_PATH)
-    res = db.export(conn, out_dir)
+
+    selected_ids = []
+    if ids:
+        for part in ids.split(","):
+            part = part.strip()
+            if part.isdigit():
+                selected_ids.append(int(part))
+    elif name or area:
+        query = "SELECT id FROM restaurants WHERE 1=1"
+        params = []
+        if name:
+            query += " AND LOWER(name) LIKE ?"
+            params.append(f"%{name.strip().lower()}%")
+        if area:
+            query += " AND LOWER(COALESCE(area, '')) = ?"
+            params.append(area.strip().lower())
+        rows = conn.execute(query, params).fetchall()
+        selected_ids = [r["id"] for r in rows]
+        if not selected_ids:
+            console.print("[yellow]No restaurants match the specified selection filter.[/yellow]")
+            return
+
+    if selected_ids:
+        console.print(f"[bold cyan]Exporting {len(selected_ids)} selected restaurant(s):[/bold cyan] IDs {selected_ids}")
+    else:
+        console.print("[bold cyan]Exporting all restaurants in database.[/bold cyan]")
+
+    res = db.export(conn, out_dir, restaurant_ids=selected_ids if selected_ids else None)
 
     table = Table(title="Dataset Export Summary", box=box.ROUNDED)
     table.add_column("Artifact", style="cyan")

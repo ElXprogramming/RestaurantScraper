@@ -173,18 +173,25 @@ The GUI consists of three dedicated tabs:
 
 #### 2. 📂 Database Explorer Tab
 1. Browse all stored restaurants (the included dataset comes pre-loaded with **25 restaurants** and **1,325 items** around 1Borneo and Alamesra).
-2. **Instant Search**: Type in the search box to filter restaurants and menu items in real-time.
-3. **Filter**: Filter by area (*1Borneo Hypermall*, *Alamesra Plaza*) or menu completeness (*Has Menu Items*, *Needs Scraping*).
-4. **Sort**: Sort by rating, total items, lowest average price, or alphabetical order.
-5. **Inspect Menu**: Click **Inspect Menu** on any row to open the full modal catalog:
+2. **Selective Export via Checkboxes**:
+   * Click checkboxes on any individual restaurants (or check the header checkbox to select all).
+   * A selection action bar appears immediately: click **📊 Export Selected CSV** or **📦 Export Selected JSON** to export only your chosen venues.
+3. **Instant Search**: Type in the search box to filter restaurants and menu items in real-time.
+4. **Filter**: Filter by area (*1Borneo Hypermall*, *Alamesra Plaza*) or menu completeness (*Has Menu Items*, *Needs Scraping*).
+5. **Sort**: Sort by rating, total items, lowest average price, or alphabetical order.
+6. **Inspect Menu & Single-Restaurant Export**: Click **Inspect Menu** on any row to open the full modal catalog:
+   * Click **📊 Export CSV** or **📦 Export JSON** in the modal header to export only that specific restaurant's menu.
    * View full address, operating hours, coordinates, and direct links.
    * Click category pills (e.g. *Rice*, *Beverages*, *Set Nasi*, *Noodles*) to filter sections.
    * Search for specific dishes within the restaurant's menu.
 
 #### 3. 📤 Export Center Tab
-1. **Download CSV**: Click **⬇ Download CSV** for an Excel-ready dataset with UTF-8 BOM encoding and protection against spreadsheet formula injection.
-2. **Download JSON**: Click **⬇ Download JSON** for a clean nested JSON catalog.
-3. **Write to Disk**: Click **💾 Write to exports/ directory** to write updated files directly into your local `exports/` folder.
+1. **Choose Export Scope**:
+   * **All Restaurants**: Export the entire database (all 25 venues and 1,325 items).
+   * **Selected Restaurants Only**: Export only the venues currently selected in Database Explorer.
+2. **Download CSV**: Click **⬇ Download CSV** for an Excel-ready dataset with UTF-8 BOM encoding and protection against spreadsheet formula injection.
+3. **Download JSON**: Click **⬇ Download JSON** for a clean nested JSON catalog.
+4. **Write to Disk**: Click **💾 Write to exports/ directory** to write updated files directly into your local `exports/` folder (also respects your selection scope).
 
 ---
 
@@ -262,11 +269,24 @@ Quickly attach a GrabFood link, foodpanda link, or website to a restaurant:
 restaurantscraper add-link "Sushi King" "https://food.grab.com/my/en/restaurant/..."
 ```
 
-#### 7. Export the Database
-Export the current SQLite database to CSV and JSON:
+#### 7. Export the Database (All or Selected)
+Export either the entire database or only specific selected restaurants to CSV and JSON:
 
 ```bash
+# Export all restaurants in the database
 restaurantscraper export
+
+# Export only specific restaurant IDs (e.g. ID 24 and ID 19)
+restaurantscraper export --ids 24,19
+
+# Export by restaurant name filter
+restaurantscraper export --name "Sushi King"
+
+# Export by area (e.g. 1borneo or alamesra)
+restaurantscraper export --area 1borneo
+
+# Export to a custom output directory
+restaurantscraper export --ids 24 --out-dir my_custom_exports/
 ```
 Outputs:
 - `exports/menu_items.csv`
