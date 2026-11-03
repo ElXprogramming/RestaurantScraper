@@ -38,6 +38,11 @@ interface LogEntry {
 
 const PRESETS = [
   {
+    name: 'Pizza Hut - Tuaran Bypass',
+    url: 'https://food.grab.com/my/en/restaurant/pizza-hut-tuaran-bypass-delivery/1-C2AALPTYKEDGCA?',
+    platform: 'GrabFood',
+  },
+  {
     name: 'Subway - Alamesra',
     url: 'https://food.grab.com/my/en/restaurant/subway-alamesra-delivery/1-C7C2CTJFVCJVA6?',
     platform: 'GrabFood',

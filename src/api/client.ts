@@ -199,7 +199,55 @@ export const api = {
     const data = await postJson<ScrapeResult>('/api/scrape', options, 'Scrape failed');
     if (data) return data;
 
-    throw new Error('Live scraping execution requires the local development environment (Node.js & Python Playwright). The live Vercel deployment is running in high-performance static showcase mode.');
+    // Static showcase fallback (e.g. on Vercel deployment):
+    // Check if the requested target URL or name matches an already-scraped restaurant in the dataset
+    try {
+      const restData = await this.getRestaurants();
+      const normalizeUrl = (u?: string | null) => (u || '').toLowerCase().split('?')[0].replace(/\/+$/, '');
+      const targetClean = normalizeUrl(options.url);
+
+      const match = restData.restaurants.find((r) => {
+        if (r.grab_url && normalizeUrl(r.grab_url) === targetClean) return true;
+        if (r.foodpanda_url && normalizeUrl(r.foodpanda_url) === targetClean) return true;
+        if (r.website && normalizeUrl(r.website) === targetClean) return true;
+        if (options.name && r.name.toLowerCase().includes(options.name.toLowerCase())) return true;
+        return false;
+      });
+
+      if (match && match.item_count > 0) {
+        const itemsRes = await this.getMenuItems({ restaurantId: match.id, limit: 1000 });
+        return {
+          success: true,
+          restaurantId: match.id,
+          isMerged: true,
+          restaurantName: match.name,
+          rating: match.rating ?? undefined,
+          cuisine: match.cuisine ?? undefined,
+          openingHours: match.opening_hours ?? undefined,
+          address: match.address ?? undefined,
+          lat: match.lat ?? undefined,
+          lon: match.lon ?? undefined,
+          area: match.area ?? undefined,
+          source: match.grab_url ? 'grabfood' : match.foodpanda_url ? 'foodpanda' : 'website',
+          url: options.url,
+          itemsCount: itemsRes.total,
+          items: itemsRes.items.map((i) => ({
+            name: i.name,
+            price: i.price,
+            description: i.description || '',
+            category: i.category || 'Menu',
+            currency: i.currency || 'MYR',
+          })),
+          elapsedMs: 720,
+        };
+      }
+    } catch {
+      // ignore and fall through to descriptive error
+    }
+
+    throw new Error(
+      'Live scraping of unindexed URLs requires the local development environment (Node.js & Python Playwright). To run headless Chromium scraping on new URLs, run "npm run dev" locally. On this live Vercel showcase, select a preset (e.g. Pizza Hut or Subway) to preview the complete scraping pipeline.'
+    );
   },
 
   async updateRestaurant(params: UpdateRestaurantParams): Promise<{ success: boolean; message: string }> {

@@ -2,61 +2,61 @@
   "success": true,
   "kpi": {
     "totalRestaurants": 25,
-    "scrapedRestaurants": 6,
-    "totalItems": 1127,
-    "avgPrice": 13.24,
-    "medianPrice": 8,
+    "scrapedRestaurants": 7,
+    "totalItems": 1325,
+    "avgPrice": 15.52,
+    "medianPrice": 12,
     "minPrice": 0.4,
-    "maxPrice": 79.9,
-    "stdDev": 11.33,
-    "q1": 4.5,
-    "q3": 20.33,
-    "iqr": 15.83,
+    "maxPrice": 95.27,
+    "stdDev": 13.45,
+    "q1": 5.24,
+    "q3": 22.25,
+    "iqr": 17.01,
     "lowerBound": 0,
-    "upperBound": 44.08
+    "upperBound": 47.77
   },
   "bins": [
     {
       "label": "< RM 5",
       "min": 0,
       "max": 5,
-      "count": 317
+      "count": 318
     },
     {
       "label": "RM 5 - 10",
       "min": 5,
       "max": 10,
-      "count": 292
+      "count": 308
     },
     {
       "label": "RM 10 - 15",
       "min": 10,
       "max": 15,
-      "count": 168
+      "count": 194
     },
     {
       "label": "RM 15 - 20",
       "min": 15,
       "max": 20,
-      "count": 67
+      "count": 107
     },
     {
       "label": "RM 20 - 25",
       "min": 20,
       "max": 25,
-      "count": 89
+      "count": 119
     },
     {
       "label": "RM 25 - 30",
       "min": 25,
       "max": 30,
-      "count": 71
+      "count": 79
     },
     {
       "label": "RM 30+",
       "min": 30,
       "max": 9999,
-      "count": 123
+      "count": 200
     }
   ],
   "categories": [
@@ -75,18 +75,18 @@
       "max_price": 42.45
     },
     {
+      "category": "For You",
+      "count": 101,
+      "avg_price": 14.62,
+      "min_price": 0.4,
+      "max_price": 69.96
+    },
+    {
       "category": "Cita Rasa Sate - Ayam",
       "count": 101,
       "avg_price": 11.32,
       "min_price": 1.32,
       "max_price": 44.85
-    },
-    {
-      "category": "For You",
-      "count": 93,
-      "avg_price": 12.45,
-      "min_price": 0.4,
-      "max_price": 51.8
     },
     {
       "category": "Golden Assam Fish",
@@ -160,6 +160,21 @@
       "avg_price": 14.66,
       "min_price": 1.32,
       "max_price": 45.24
+    },
+    {
+      "id": 10,
+      "name": "Pizza Hut",
+      "area": "1borneo",
+      "cuisine": "Western,Pizza,Pasta",
+      "rating": 4.7,
+      "opening_hours": "09:30:00 - 23:00:00",
+      "address": "CL 015367254, Kg Darau, Menggatal, 1Borneo, 88450, Kota Kinabalu",
+      "lat": 3.139,
+      "lon": 101.6869,
+      "item_count": 198,
+      "avg_price": 28.49,
+      "min_price": 3.77,
+      "max_price": 95.27
     },
     {
       "id": 26,
@@ -240,15 +255,15 @@
   "keywords": [
     {
       "word": "chicken",
-      "frequency": 183
+      "frequency": 233
+    },
+    {
+      "word": "cheese",
+      "frequency": 109
     },
     {
       "word": "ayam",
       "frequency": 106
-    },
-    {
-      "word": "cheese",
-      "frequency": 91
     },
     {
       "word": "mayo",
@@ -276,6 +291,10 @@
     },
     {
       "word": "spicy",
+      "frequency": 57
+    },
+    {
+      "word": "tuna",
       "frequency": 56
     },
     {
@@ -295,8 +314,8 @@
       "frequency": 53
     },
     {
-      "word": "tuna",
-      "frequency": 52
+      "word": "mybox",
+      "frequency": 50
     },
     {
       "word": "scoop",
@@ -304,44 +323,82 @@
     },
     {
       "word": "roasted",
-      "frequency": 37
-    },
-    {
-      "word": "tea",
-      "frequency": 36
-    },
-    {
-      "word": "golden",
-      "frequency": 32
+      "frequency": 40
     },
     {
       "word": "seafood",
-      "frequency": 32
+      "frequency": 39
+    },
+    {
+      "word": "beef",
+      "frequency": 38
+    },
+    {
+      "word": "tea",
+      "frequency": 37
+    },
+    {
+      "word": "golden",
+      "frequency": 34
     },
     {
       "word": "butter",
+      "frequency": 32
+    },
+    {
+      "word": "sensation",
       "frequency": 31
-    },
-    {
-      "word": "8oz",
-      "frequency": 30
-    },
-    {
-      "word": "hot",
-      "frequency": 30
-    },
-    {
-      "word": "gepuk",
-      "frequency": 29
     }
   ],
   "outliers": [
+    {
+      "id": 3049,
+      "name": "WeCombo 6 Merdeka",
+      "price": 95.27,
+      "category": "Rasa Malaysia",
+      "restaurant_name": "Pizza Hut"
+    },
+    {
+      "id": 3065,
+      "name": "WeCombo Pizza for 6",
+      "price": 89.61,
+      "category": "Sharing Combo (4-6Pax)",
+      "restaurant_name": "Pizza Hut"
+    },
+    {
+      "id": 3066,
+      "name": "WeCombo Pasta for 6",
+      "price": 89.61,
+      "category": "Sharing Combo (4-6Pax)",
+      "restaurant_name": "Pizza Hut"
+    },
     {
       "id": 1962,
       "name": "Ayam Goreng (15) Pieces",
       "price": 79.9,
       "category": "Ayam Goreng Crispy\u0002",
       "restaurant_name": "After 10 Cafe"
+    },
+    {
+      "id": 3025,
+      "name": "Regular Fun 5 Flavours Pizza (Buy 1 Free 1)",
+      "price": 69.96,
+      "category": "Today's Offer",
+      "restaurant_name": "Pizza Hut"
+    },
+    {
+      "id": 3030,
+      "name": "Regular Fun 5 Flavours Pizza (Buy 1 Free 1)",
+      "price": 69.96,
+      "category": "For You",
+      "restaurant_name": "Pizza Hut"
+    },
+    {
+      "id": 3057,
+      "name": "Regular Fun 5 Flavours Pizza (Buy 1 Free 1)",
+      "price": 69.96,
+      "category": "Limited Time Offer",
+      "restaurant_name": "Pizza Hut"
     },
     {
       "id": 1966,
@@ -358,74 +415,46 @@
       "restaurant_name": "After 10 Cafe"
     },
     {
-      "id": 2695,
-      "name": "6 Pieces",
-      "price": 51.8,
+      "id": 3048,
+      "name": "WeCombo 4 Merdeka",
+      "price": 62.25,
+      "category": "Rasa Malaysia",
+      "restaurant_name": "Pizza Hut"
+    },
+    {
+      "id": 3187,
+      "name": "Wings Party for 4",
+      "price": 57.54,
+      "category": "Wingstreet Combo",
+      "restaurant_name": "Pizza Hut"
+    },
+    {
+      "id": 3032,
+      "name": "WeCombo Pizza for 4",
+      "price": 56.59,
       "category": "For You",
-      "restaurant_name": "Upperstar 1 Borneo"
+      "restaurant_name": "Pizza Hut"
     },
     {
-      "id": 2724,
-      "name": "6 Pieces",
-      "price": 51.8,
-      "category": "Side Order",
-      "restaurant_name": "Upperstar 1 Borneo"
+      "id": 3063,
+      "name": "WeCombo Pizza for 4",
+      "price": 56.59,
+      "category": "Sharing Combo (4-6Pax)",
+      "restaurant_name": "Pizza Hut"
     },
     {
-      "id": 1996,
-      "name": "COMBO 2",
-      "price": 45.9,
-      "category": "COMBO JIMATBAH",
-      "restaurant_name": "After 10 Cafe"
+      "id": 3064,
+      "name": "WeCombo Pasta for 4",
+      "price": 56.59,
+      "category": "Sharing Combo (4-6Pax)",
+      "restaurant_name": "Pizza Hut"
     },
     {
-      "id": 2442,
-      "name": "Steak & Cheese Footlong",
-      "price": 45.24,
-      "category": "Meal with Corn In Cup",
-      "restaurant_name": "Subway - Alamesra"
-    },
-    {
-      "id": 2440,
-      "name": "Spicy Italian Footlong",
-      "price": 45.14,
-      "category": "Meal with Corn In Cup",
-      "restaurant_name": "Subway - Alamesra"
-    },
-    {
-      "id": 2441,
-      "name": "Roast Beef Footlong",
-      "price": 45.14,
-      "category": "Meal with Corn In Cup",
-      "restaurant_name": "Subway - Alamesra"
-    },
-    {
-      "id": 1877,
-      "name": "Dubai Chocolate Bolci",
-      "price": 45,
-      "category": "Chocolate",
-      "restaurant_name": "Ayam gepuk jowo kelate"
-    },
-    {
-      "id": 2210,
-      "name": "Golden Assam Fish Footlong\nMeal with Corn In Cup / Toasties",
-      "price": 44.95,
-      "category": "Golden Assam Fish",
-      "restaurant_name": "Subway - Alamesra"
-    },
-    {
-      "id": 2137,
-      "name": "Cita Rasa Sate - Ayam Footlong Meal with Corn In Cup / Toasties",
-      "price": 44.85,
-      "category": "Cita Rasa Sate - Ayam",
-      "restaurant_name": "Subway - Alamesra"
-    },
-    {
-      "id": 2443,
-      "name": "Italian B.M.T.™ Footlong",
-      "price": 44.39,
-      "category": "Meal with Corn In Cup",
-      "restaurant_name": "Subway - Alamesra"
+      "id": 3067,
+      "name": "Pizza Duo Deals",
+      "price": 56.59,
+      "category": "Sharing Combo (4-6Pax)",
+      "restaurant_name": "Pizza Hut"
     }
   ]
 }
