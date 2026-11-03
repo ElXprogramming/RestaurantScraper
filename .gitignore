@@ -50,3 +50,4 @@ firebase-credentials.json
 credentials/
 secrets/
 private/
+.env*
