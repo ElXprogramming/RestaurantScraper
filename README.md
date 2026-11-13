@@ -1,13 +1,16 @@
 # 🍽️ RestaurantScraper
 
-> **High-performance restaurant menu scraper, organized SQLite database explorer, and CSV/JSON export tool with both a modern CLI and local Web GUI.**
+> **Local-first Python restaurant menu scraper, GrabFood & foodpanda Playwright network sniffer, SQLite database explorer, and CSV/JSON export tool with CLI and Web GUI.**
 
+[![Latest Release](https://img.shields.io/github/v/release/ElXprogramming/RestaurantScraper?color=blue)](https://github.com/ElXprogramming/RestaurantScraper/releases)
+[![CI](https://github.com/ElXprogramming/RestaurantScraper/actions/workflows/ci.yml/badge.svg)](https://github.com/ElXprogramming/RestaurantScraper/actions/workflows/ci.yml)
 [![Python Version](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Database](https://img.shields.io/badge/Storage-SQLite3%20%28WAL%29-green.svg)](https://sqlite.org)
 [![CLI Framework](https://img.shields.io/badge/CLI-Typer%20%2B%20Rich-cyan.svg)](https://typer.tiangolo.com)
 [![Headless Engine](https://img.shields.io/badge/Engine-Playwright%20Chromium-red.svg)](https://playwright.dev)
-[![Local First](https://img.shields.io/badge/Privacy-100%25%20Local--First-emerald.svg)](#architecture)
+[![Local First](https://img.shields.io/badge/Privacy-100%25%20Local--First-emerald.svg)](#-overview)
+[![GitHub Stars](https://img.shields.io/github/stars/ElXprogramming/RestaurantScraper?style=social)](https://github.com/ElXprogramming/RestaurantScraper/stargazers)
 
 ---
 
@@ -324,7 +327,7 @@ RestaurantScraper implements a specialized passive network sniffer:
 
 1. **Geolocation Lock**: Headless Chromium launches with Kota Kinabalu coordinates (`6.0360, 116.1297`) and `en-MY` locale to bypass Grab's regional delivery locks.
 2. **Passive Sniffing**: Uses Playwright's `page.on("response")` event to listen for asynchronous JSON API payloads returned by Grab's gateway.
-3. **Recursive Catalog Walker**: Recursively traverses nested categories, sections, item variations, and modifiers (`_walk()` function in [`scraper/extract_delivery.py`](file:///home/eldion/RestaurantScraper/scraper/extract_delivery.py)).
+3. **Recursive Catalog Walker**: Recursively traverses nested categories, sections, item variations, and modifiers (`_walk()` function in [`scraper/extract_delivery.py`](scraper/extract_delivery.py)).
 4. **Price Normalization**: Converts GrabFood's integer minor unit prices (`priceInMinorUnit / 100`) to standard Ringgit floats (e.g. `1290` -> `RM 12.90`).
 5. **Fuzzy Deduplication**: When adding restaurants, the engine calculates name similarity (via `difflib.SequenceMatcher`) and geographical distance (via the **Haversine formula** <= 150m) to automatically merge records instead of creating duplicates.
 
@@ -376,7 +379,7 @@ python3 -m scraper ui
 The CSV exporter automatically writes a **UTF-8 BOM** (`utf-8-sig`) header, ensuring Microsoft Excel, Apple Numbers, and LibreOffice Calc render non-ASCII characters correctly.
 
 #### 5. Formula Injection Defense
-Any cell starting with dangerous characters (`=`, `+`, `-`, `@`) is safely prefixed with an apostrophe (`'`) by [`scraper/security.py`](file:///home/eldion/RestaurantScraper/scraper/security.py) to prevent CSV Formula Injection attacks when opening files in spreadsheet software.
+Any cell starting with dangerous characters (`=`, `+`, `-`, `@`) is safely prefixed with an apostrophe (`'`) by [`scraper/security.py`](scraper/security.py) to prevent CSV Formula Injection attacks when opening files in spreadsheet software.
 
 ---
 
@@ -385,6 +388,12 @@ Any cell starting with dangerous characters (`=`, `+`, `-`, `@`) is safely prefi
 - **Rate-Limiting**: A polite delay (default: 2.0s per host) is enforced between requests.
 - **Robots Exclusion**: Standard `robots.txt` directives are parsed and respected.
 - **Academic & Research Use**: Cite your data sources when using this dataset for research or reporting.
+
+---
+
+## 🤝 Contributing & Security
+
+Contributions, bug reports, and feature ideas are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) and our [Code of Conduct](CODE_OF_CONDUCT.md) before opening a pull request. To report a security issue, see [SECURITY.md](SECURITY.md).
 
 ---
 

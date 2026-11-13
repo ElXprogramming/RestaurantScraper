@@ -14,15 +14,30 @@ authors = [
 ]
 keywords = [
     "scraper",
+    "web-scraping",
     "grabfood",
     "foodpanda",
     "restaurant-scraper",
     "menu-scraper",
+    "restaurant-menu",
+    "playwright",
     "sqlite",
+    "data-extraction",
     "data-export",
+    "csv-export",
+    "json-export",
+    "openstreetmap",
+    "local-first",
+    "automation",
     "cli",
     "local-gui",
 ]
+
+[project.urls]
+Homepage = "https://github.com/ElXprogramming/RestaurantScraper"
+Repository = "https://github.com/ElXprogramming/RestaurantScraper"
+Issues = "https://github.com/ElXprogramming/RestaurantScraper/issues"
+Changelog = "https://github.com/ElXprogramming/RestaurantScraper/releases"
 classifiers = [
     "Development Status :: 4 - Beta",
     "Environment :: Console",
