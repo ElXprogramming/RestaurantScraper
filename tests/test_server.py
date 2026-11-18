@@ -61,3 +61,64 @@ def test_server_api_endpoints():
     finally:
         server.shutdown()
         server.server_close()
+
+
+def test_server_scrape_endpoint(monkeypatch):
+    import scraper.server as server_mod
+
+    captured = {}
+
+    def fake_run_scrape(**kwargs):
+        captured.update(kwargs)
+        return {
+            "success": True,
+            "restaurantId": 999,
+            "restaurantName": "Test Cafe",
+            "itemsCount": 1,
+            "items": [{"name": "Teh Tarik", "price": 3.5, "category": "Drinks"}],
+        }
+
+    server = ThreadingHTTPServer(("127.0.0.1", 0), RestaurantScraperAPIHandler)
+    port = server.server_address[1]
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+
+    try:
+        # Verify real run_scrape symbol resolves cleanly without NameError
+        blocked_req = urllib.request.Request(
+            f"http://127.0.0.1:{port}/api/scrape",
+            data=json.dumps({"url": "http://127.0.0.1:1/blocked"}).encode("utf-8"),
+            headers={"Content-Type": "application/json"},
+            method="POST",
+        )
+        blocked_res = urllib.request.urlopen(blocked_req)
+        assert blocked_res.status == 200
+        blocked_payload = json.loads(blocked_res.read().decode("utf-8"))
+        assert blocked_payload["success"] is False
+        assert "security policy" in blocked_payload["error"]
+
+        monkeypatch.setattr(server_mod, "run_scrape", fake_run_scrape)
+
+        req = urllib.request.Request(
+            f"http://127.0.0.1:{port}/api/scrape",
+            data=json.dumps({
+                "url": "https://food.grab.com/my/en/restaurant/test-cafe/1-ABC",
+                "name": "Test Cafe",
+                "area": "1borneo",
+                "cuisine": "Malaysian",
+                "render": True,
+            }).encode("utf-8"),
+            headers={"Content-Type": "application/json"},
+            method="POST",
+        )
+        res = urllib.request.urlopen(req)
+        assert res.status == 200
+        payload = json.loads(res.read().decode("utf-8"))
+        assert payload["success"] is True
+        assert payload["restaurantName"] == "Test Cafe"
+        assert captured["url"] == "https://food.grab.com/my/en/restaurant/test-cafe/1-ABC"
+        assert captured["render"] is True
+        assert captured["save_sqlite"] is True
+    finally:
+        server.shutdown()
+        server.server_close()

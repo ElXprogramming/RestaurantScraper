@@ -19,7 +19,7 @@ import urllib.parse
 import webbrowser
 
 from scraper import config, db, discovery
-from scraper.runner import cmd_scrape
+from scraper.runner import cmd_scrape as run_scrape
 
 logger = logging.getLogger("scraper.server")
 
